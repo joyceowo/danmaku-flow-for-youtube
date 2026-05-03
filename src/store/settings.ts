@@ -13,6 +13,7 @@ import {
 const initialState: Settings = {
   background: false,
   backgroundOpacity: 0.4,
+  hideFullscreenChat: false,
   maxActiveDisplays: 0,
   chatVisible: true,
   delayTime: 0,
@@ -72,6 +73,7 @@ const initialState: Settings = {
 export default class SettingsModule extends VuexModule {
   background = initialState.background
   backgroundOpacity = initialState.backgroundOpacity
+  hideFullscreenChat = initialState.hideFullscreenChat
   maxActiveDisplays = initialState.maxActiveDisplays
   chatVisible = true
   delayTime = initialState.delayTime
@@ -121,6 +123,14 @@ export default class SettingsModule extends VuexModule {
   @Mutation
   setBackgroundOpacity({ backgroundOpacity }: { backgroundOpacity: number }) {
     this.backgroundOpacity = backgroundOpacity
+  }
+  @Mutation
+  setHideFullscreenChat({
+    hideFullscreenChat,
+  }: {
+    hideFullscreenChat: boolean
+  }) {
+    this.hideFullscreenChat = hideFullscreenChat
   }
   @Mutation
   setMaxActiveDisplays({ maxActiveDisplays }: { maxActiveDisplays: number }) {

@@ -21,6 +21,7 @@ export type Style = {
 export type Settings = {
   background: boolean
   backgroundOpacity: number
+  hideFullscreenChat: boolean
   maxActiveDisplays: number
   chatVisible: boolean
   delayTime: number

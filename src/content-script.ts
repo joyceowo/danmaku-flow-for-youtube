@@ -5,6 +5,63 @@ let settings: Settings
 
 const isVideoUrl = () => new URL(location.href).pathname === '/watch'
 
+const waitForChatContainer = async (timeout = 15000) => {
+  const existing = document.querySelector<HTMLElement>(
+    '#panels-full-bleed-container'
+  )
+  if (existing) {
+    return existing
+  }
+
+  return await new Promise<HTMLElement | null>((resolve) => {
+    const expireTime = Date.now() + timeout
+    const observer = new MutationObserver(() => {
+      const container = document.querySelector<HTMLElement>(
+        '#panels-full-bleed-container'
+      )
+      if (container) {
+        observer.disconnect()
+        resolve(container)
+        return
+      }
+      if (Date.now() > expireTime) {
+        observer.disconnect()
+        resolve(null)
+      }
+    })
+
+    observer.observe(document.documentElement, {
+      childList: true,
+      subtree: true,
+    })
+
+    window.setTimeout(() => {
+      observer.disconnect()
+      resolve(
+        document.querySelector<HTMLElement>('#panels-full-bleed-container')
+      )
+    }, timeout)
+  })
+}
+
+const applyChatVisibility = async () => {
+  if (!isVideoUrl() || !settings) {
+    return
+  }
+
+  const chatContainer = await waitForChatContainer()
+  if (!chatContainer) {
+    return
+  }
+
+  if (settings.hideFullscreenChat === true) {
+    chatContainer.style.setProperty('display', 'none', 'important')
+    return
+  }
+
+  chatContainer.style.removeProperty('display')
+}
+
 const waitCollapsed = async () => {
   const iframe = await querySelectorAsync('ytd-live-chat-frame')
   return new Promise<boolean>((resolve) => {
@@ -24,6 +81,8 @@ const init = async () => {
     return
   }
 
+  await applyChatVisibility()
+
   if (!settings.chatVisible) {
     return
   }
@@ -40,17 +99,20 @@ const init = async () => {
 }
 
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
-  const { type } = message
+  const { type, data } = message
   switch (type) {
     case 'url-changed':
       init().then(() => sendResponse())
+      return true
+    case 'settings-changed':
+      settings = data.settings
+      applyChatVisibility().then(() => sendResponse())
       return true
   }
 })
 
 document.addEventListener('DOMContentLoaded', async () => {
   const data = await chrome.runtime.sendMessage({ type: 'content-loaded' })
-  console.log(data)
   settings = data.settings
   await init()
 })
