@@ -1,18 +1,19 @@
-import { Module, VuexModule, Mutation } from 'vuex-module-decorators'
+import { Module, Mutation, VuexModule } from 'vuex-module-decorators'
 import {
-  AuthorType,
-  EmojiStyle,
-  HeightType,
-  MessageType,
-  Overflow,
-  Settings,
-  StackDirection,
-  Style,
+    AuthorType,
+    EmojiStyle,
+    HeightType,
+    MessageType,
+    Overflow,
+    Settings,
+    StackDirection,
+    Style,
 } from '~/models'
 
 const initialState: Settings = {
   background: false,
   backgroundOpacity: 0.4,
+  maxActiveDisplays: 0,
   chatVisible: true,
   delayTime: 0,
   displayTime: 5,
@@ -71,6 +72,7 @@ const initialState: Settings = {
 export default class SettingsModule extends VuexModule {
   background = initialState.background
   backgroundOpacity = initialState.backgroundOpacity
+  maxActiveDisplays = initialState.maxActiveDisplays
   chatVisible = true
   delayTime = initialState.delayTime
   displayTime = initialState.displayTime
@@ -119,6 +121,10 @@ export default class SettingsModule extends VuexModule {
   @Mutation
   setBackgroundOpacity({ backgroundOpacity }: { backgroundOpacity: number }) {
     this.backgroundOpacity = backgroundOpacity
+  }
+  @Mutation
+  setMaxActiveDisplays({ maxActiveDisplays }: { maxActiveDisplays: number }) {
+    this.maxActiveDisplays = maxActiveDisplays
   }
   @Mutation
   setChatVisible({ chatVisible }: { chatVisible: boolean }) {

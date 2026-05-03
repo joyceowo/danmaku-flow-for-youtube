@@ -100,6 +100,30 @@
       </template>
     </v-slider>
 
+    <div class="caption">Max Active Displays (Infinite if set to 0)</div>
+    <v-slider
+      v-model="maxActiveDisplays"
+      class="align-center mb-5"
+      min="0"
+      max="50"
+      dense
+      hide-details
+    >
+      <template #prepend>
+        <v-text-field
+          v-model="maxActiveDisplays"
+          class="mt-0 pt-0"
+          dense
+          hide-details
+          single-line
+          type="number"
+          min="0"
+          max="200"
+          style="width: 75px"
+        />
+      </template>
+    </v-slider>
+
     <div class="caption">Stack Directions</div>
     <v-select
       v-model="stackDirection"
@@ -160,6 +184,16 @@ const maxDisplays = computed({
   set: (value) => {
     settingsStore.setMaxDisplays({
       maxDisplays: Number(value),
+    })
+  },
+})
+const maxActiveDisplays = computed({
+  get: () => {
+    return settingsStore.maxActiveDisplays
+  },
+  set: (value) => {
+    settingsStore.setMaxActiveDisplays({
+      maxActiveDisplays: Number(value),
     })
   },
 })

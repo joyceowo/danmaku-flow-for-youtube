@@ -1,9 +1,9 @@
 import { semaphore } from '@fiahfy/semaphore'
 import { Message, Settings } from '~/models'
 import { querySelectorAsync, waitAllImagesLoaded } from '~/utils/dom-helper'
-import MessageSettings from '~/utils/message-settings'
 import { parse } from '~/utils/message-parser'
 import { render } from '~/utils/message-renderer'
+import MessageSettings from '~/utils/message-settings'
 
 const sem = semaphore()
 
@@ -116,6 +116,10 @@ export default class FlowController {
       video.offsetHeight,
       this.settings
     )
+
+    if (this.isOverActiveMessageLimit(container, lines, this.settings)) {
+      return
+    }
 
     const deleted = await this.validateDeletedMessage(element)
     if (deleted) {
@@ -281,6 +285,20 @@ export default class FlowController {
     const animation = element.animate(keyframes, { duration, delay })
     animation.pause()
     return animation
+  }
+
+  private isOverActiveMessageLimit(
+    container: HTMLElement,
+    lines: number,
+    settings: Settings
+  ) {
+    if (settings.overflow === 'hidden' || settings.maxActiveDisplays <= 0) {
+      return false
+    }
+
+    const activeMessages =
+      container.querySelectorAll('.ylcf-flow-message').length
+    return activeMessages >= settings.maxActiveDisplays
   }
 
   private isDeniedIndex(index: number, lines: number) {
