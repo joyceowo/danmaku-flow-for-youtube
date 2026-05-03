@@ -42,6 +42,27 @@ const handleClickReset = () => {
 html {
   overflow-y: auto;
 }
+
+body {
+  margin: 0;
+}
+
+body.popup-page {
+  background: #dbeafe;
+}
+
+body.popup-page .theme--light.v-application {
+  background: #dbeafe !important;
+}
+
+body.popup-page .theme--light.v-main {
+  background: linear-gradient(180deg, #dbeafe 0%, #eaf4ff 100%);
+}
+
+body.popup-page .theme--light.v-sheet,
+body.popup-page .theme--light.v-card {
+  background: rgba(255, 255, 255, 0.72);
+}
 </style>
 
 <style lang="scss" scoped>

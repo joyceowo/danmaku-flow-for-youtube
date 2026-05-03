@@ -2,6 +2,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
+const packageJson = require('./package.json')
 
 module.exports = {
   mode: 'production',
@@ -68,9 +69,9 @@ module.exports = {
             return Buffer.from(
               JSON.stringify({
                 ...JSON.parse(content.toString()),
-                name: process.env.npm_package_productName,
-                description: process.env.npm_package_description,
-                version: process.env.npm_package_version,
+                name: packageJson.productName || packageJson.name,
+                description: packageJson.description,
+                version: packageJson.version,
               })
             )
           },
