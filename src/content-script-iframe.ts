@@ -1,8 +1,8 @@
-import FlowController from '~/utils/flow-controller'
 import chat from '~/assets/chat.svg'
 import downArrow from '~/assets/down-arrow.svg'
 import refresh from '~/assets/refresh.svg'
 import { querySelectorAsync } from '~/utils/dom-helper'
+import FlowController from '~/utils/flow-controller'
 
 const controller = new FlowController()
 let observer: MutationObserver | undefined
@@ -27,7 +27,7 @@ const menuButtonConfigs = [
 
 const updateControlButton = () => {
   const button = parent.document.querySelector('.ylcf-control-button')
-  button && button.setAttribute('aria-pressed', String(controller.enabled))
+  button && button.setAttribute('data-enabled', String(controller.enabled))
 }
 
 const removeControlButton = () => {
@@ -46,8 +46,9 @@ const addControlButton = () => {
   }
 
   const button = document.createElement('button')
-  button.classList.add('ytp-button', 'ylcf-control-button')
+  button.classList.add('ylcf-control-button')
   button.title = 'Flow messages'
+  button.setAttribute('aria-label', 'Flow messages')
   button.onclick = async () =>
     await chrome.runtime.sendMessage({ type: 'control-button-clicked' })
   button.innerHTML = chat
@@ -60,7 +61,13 @@ const addControlButton = () => {
     svg.setAttribute('width', '100%')
   }
 
-  controls.prepend(button)
+  const autoplayToggle = controls.querySelector('.ytp-autonav-toggle-button')
+  const autoplayContainer = autoplayToggle?.parentElement
+  if (autoplayContainer?.parentElement === controls) {
+    autoplayContainer.insertAdjacentElement('afterend', button)
+  } else {
+    controls.prepend(button)
+  }
 
   updateControlButton()
 }

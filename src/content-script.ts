@@ -2,6 +2,7 @@ import { Settings } from '~/models'
 import { querySelectorAsync } from '~/utils/dom-helper'
 
 let settings: Settings
+let flowMessagesEnabled = true
 
 const isVideoUrl = () => new URL(location.href).pathname === '/watch'
 
@@ -54,7 +55,7 @@ const applyChatVisibility = async () => {
     return
   }
 
-  if (settings.hideFullscreenChat === true) {
+  if (settings.hideFullscreenChat === true && flowMessagesEnabled) {
     chatContainer.style.setProperty('display', 'none', 'important')
     return
   }
@@ -104,6 +105,10 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
     case 'url-changed':
       init().then(() => sendResponse())
       return true
+    case 'enabled-changed':
+      flowMessagesEnabled = data.enabled
+      applyChatVisibility().then(() => sendResponse())
+      return true
     case 'settings-changed':
       settings = data.settings
       applyChatVisibility().then(() => sendResponse())
@@ -114,5 +119,6 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
 document.addEventListener('DOMContentLoaded', async () => {
   const data = await chrome.runtime.sendMessage({ type: 'content-loaded' })
   settings = data.settings
+  flowMessagesEnabled = data.enabled
   await init()
 })

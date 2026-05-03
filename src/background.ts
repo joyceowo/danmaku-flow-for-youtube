@@ -20,10 +20,13 @@ const setIcon = async (tabId: number) => {
   await chrome.action.setIcon({ tabId, path })
 }
 
-const contentLoaded = async () => {
+const contentLoaded = async (tabId?: number) => {
   const settings = await getSettings()
+  const enabled = tabId
+    ? tabStates[tabId]?.enabled ?? initialState.enabled
+    : initialState.enabled
 
-  return { settings }
+  return { settings, enabled }
 }
 
 const iframeLoaded = async (tabId: number) => {
@@ -95,7 +98,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   const { tab } = sender
   switch (type) {
     case 'content-loaded':
-      contentLoaded().then((data) => sendResponse(data))
+      contentLoaded(tab?.id).then((data) => sendResponse(data))
       return true
     case 'iframe-loaded':
       if (tab?.id) {
