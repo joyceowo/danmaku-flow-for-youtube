@@ -1,6 +1,6 @@
+import iconOff from '~/assets/livecanvas-icon-off.png'
+import iconOn from '~/assets/livecanvas-icon-on.png'
 import { readyStore } from '~/store'
-import iconOff from '~/assets/icon-off.png'
-import iconOn from '~/assets/icon-on.png'
 
 interface TabState {
   enabled: boolean

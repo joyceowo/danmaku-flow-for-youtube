@@ -67,8 +67,28 @@
 }
 
 /* .ylcf-control-button */
+.ylcf-control-button {
+  background: transparent !important;
+  border: none;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  transition: opacity 0.2s ease;
+}
+.ylcf-control-button:hover,
+.ylcf-control-button:focus,
+.ylcf-control-button[aria-pressed='true'] {
+  background: transparent !important;
+  box-shadow: none !important;
+}
 .ylcf-control-button > svg {
-  fill: white;
+  color: rgba(255, 255, 255, 0.38);
+  opacity: 1;
+}
+.ylcf-control-button[aria-pressed='true'] > svg {
+  color: rgba(255, 255, 255, 0.95);
+}
+.ylcf-control-button:hover > svg {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 /* Hide .ytp-fullerscreen-edu-button if .ylcf-controller exists  */

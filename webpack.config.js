@@ -62,7 +62,10 @@ module.exports = {
   plugins: [
     new CopyWebpackPlugin({
       patterns: [
-        'icon.png',
+        {
+          from: 'livecanvas-icon.png',
+          to: 'icon.png',
+        },
         {
           from: 'manifest.json',
           transform: (content) => {
