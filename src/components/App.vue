@@ -17,7 +17,12 @@
         <div class="subtitle-2">Others</div>
         <others-section class="mt-3 mb-5 mx-3" />
 
-        <v-btn class="mt-4" depressed block @click="handleClickReset">
+        <v-btn
+          class="mt-4 reset-button"
+          outlined
+          block
+          @click="handleClickReset"
+        >
           Reset Settings to Default
         </v-btn>
       </v-container>
@@ -46,27 +51,16 @@ html {
 body {
   margin: 0;
 }
-
-body.popup-page {
-  background: #dbeafe;
-}
-
-body.popup-page .theme--light.v-application {
-  background: #dbeafe !important;
-}
-
-body.popup-page .theme--light.v-main {
-  background: linear-gradient(180deg, #dbeafe 0%, #eaf4ff 100%);
-}
-
-body.popup-page .theme--light.v-sheet,
-body.popup-page .theme--light.v-card {
-  background: rgba(255, 255, 255, 0.72);
-}
 </style>
 
 <style lang="scss" scoped>
 .v-application {
   width: 640px;
+}
+
+.reset-button {
+  background: #ffffff;
+  border-color: #d32f2f !important;
+  color: #d32f2f;
 }
 </style>

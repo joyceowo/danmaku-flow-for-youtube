@@ -1,13 +1,13 @@
 import { Module, Mutation, VuexModule } from 'vuex-module-decorators'
 import {
-    AuthorType,
-    EmojiStyle,
-    HeightType,
-    MessageType,
-    Overflow,
-    Settings,
-    StackDirection,
-    Style,
+  AuthorType,
+  EmojiStyle,
+  HeightType,
+  MessageType,
+  Overflow,
+  Settings,
+  StackDirection,
+  Style,
 } from '~/models'
 
 const initialState: Settings = {
