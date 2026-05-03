@@ -14,9 +14,9 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
-      - run: yarn
-      - run: yarn test
-      - run: yarn package
+      - run: npm ci
+      - run: npm test
+      - run: npm run package
       - uses: softprops/action-gh-release@v1
         with:
           draft: true

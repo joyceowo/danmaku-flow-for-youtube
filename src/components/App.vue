@@ -11,9 +11,6 @@
         <div class="subtitle-2">Behavior</div>
         <behavior-section class="mt-3 mb-5 mx-3" />
 
-        <div class="subtitle-2">Filter</div>
-        <filter-section class="mt-3 mb-5 mx-3" />
-
         <div class="subtitle-2">Others</div>
         <others-section class="mt-3 mb-5 mx-3" />
 
@@ -33,7 +30,6 @@
 <script setup lang="ts">
 import AppearanceSection from '~/components/AppearanceSection.vue'
 import BehaviorSection from '~/components/BehaviorSection.vue'
-import FilterSection from '~/components/FilterSection.vue'
 import GeneralSection from '~/components/GeneralSection.vue'
 import OthersSection from '~/components/OthersSection.vue'
 import { settingsStore } from '~/store'

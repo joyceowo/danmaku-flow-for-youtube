@@ -66,6 +66,7 @@ module.exports = {
           from: 'livecanvas-icon.png',
           to: 'icon.png',
         },
+        'livecanvas-icon.png',
         {
           from: 'manifest.json',
           transform: (content) => {

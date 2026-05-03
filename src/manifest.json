@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "icons": {
-    "128": "icon.png"
+    "128": "livecanvas-icon.png"
   },
   "background": {
     "service_worker": "background.js"
@@ -23,7 +23,7 @@
     }
   ],
   "action": {
-    "default_icon": "icon.png",
+    "default_icon": "livecanvas-icon.png",
     "default_popup": "popup.html"
   },
   "options_ui": {
