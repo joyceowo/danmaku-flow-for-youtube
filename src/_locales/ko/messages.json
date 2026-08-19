@@ -54,6 +54,11 @@
   "alwaysShowChatHint": {
     "message": "YouTube Premiere에서는 기본적으로 채팅이 숨겨집니다."
   },
+  "supportDevelopment": { "message": "개발 후원" },
+  "supportDevelopmentHint": {
+    "message": "Danmaku Flow for YouTube는 독립적으로 유지 관리됩니다. 마음에 드셨다면 앞으로의 개발을 후원해 주세요."
+  },
+  "supportViaPayPal": { "message": "PayPal로 후원" },
   "flowMessages": { "message": "댓글 흐르게 하기" },
   "followNewMessages": { "message": "새 메시지 따라가기" },
   "reloadFrame": { "message": "채팅 다시 로드" }

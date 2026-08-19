@@ -58,6 +58,11 @@
   "alwaysShowChatHint": {
     "message": "By default, the chat is hidden for YouTube Premieres."
   },
+  "supportDevelopment": { "message": "Support Development" },
+  "supportDevelopmentHint": {
+    "message": "Danmaku Flow for YouTube is independently maintained. If you enjoy it, consider supporting future development."
+  },
+  "supportViaPayPal": { "message": "Support via PayPal" },
   "flowMessages": { "message": "Flow messages" },
   "followNewMessages": { "message": "Follow New Messages" },
   "reloadFrame": { "message": "Reload Frame" }

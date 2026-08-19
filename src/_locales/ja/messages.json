@@ -54,6 +54,11 @@
   "alwaysShowChatHint": {
     "message": "YouTube Premiere では、初期設定でチャットが隠れています。"
   },
+  "supportDevelopment": { "message": "開発を支援" },
+  "supportDevelopmentHint": {
+    "message": "Danmaku Flow for YouTube は独立してメンテナンスされています。気に入っていただけたら、今後の開発を支援してください。"
+  },
+  "supportViaPayPal": { "message": "PayPal で支援" },
   "flowMessages": { "message": "コメントを流す" },
   "followNewMessages": { "message": "新しいメッセージに追従" },
   "reloadFrame": { "message": "チャットを再読み込み" }

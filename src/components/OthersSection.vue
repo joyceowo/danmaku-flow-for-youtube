@@ -24,6 +24,21 @@
       persistent-hint
       dense
     />
+    <v-divider class="my-5" />
+    <div class="subtitle-2">{{ t('supportDevelopment') }}</div>
+    <div class="caption mt-1">{{ t('supportDevelopmentHint') }}</div>
+    <v-btn
+      class="mt-3"
+      color="primary"
+      href="https://paypal.me/OwOJoyce"
+      target="_blank"
+      rel="noopener noreferrer"
+      small
+      outlined
+    >
+      <v-icon left small>mdi-heart-outline</v-icon>
+      {{ t('supportViaPayPal') }}
+    </v-btn>
   </div>
 </template>
 
