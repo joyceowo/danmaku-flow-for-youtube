@@ -1,8 +1,8 @@
-# LiveCanvas Chat for YouTube
+# Danmaku Flow for YouTube
 
 > Bring polished danmaku-style live comments to YouTube with stream-ready chat controls and customization.
 
-LiveCanvas Chat for YouTube is a Chrome extension that turns YouTube live chat
+Danmaku Flow for YouTube is a Chrome extension that turns YouTube live chat
 messages into flowing on-screen overlays. It helps present live comments more
 like danmaku or floating subtitles, while keeping the display customizable and
 easier to manage during busy streams.
@@ -33,7 +33,7 @@ Many thanks to the original author and the fork maintainer for creating and shar
 
 ## Screenshots
 
-![LiveCanvas preview](.github/img/livecanvas-preview.png)
+![Danmaku Flow for YouTube preview](.github/img/livecanvas-preview.png)
 
 ## Installation
 
