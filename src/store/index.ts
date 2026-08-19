@@ -39,10 +39,11 @@ const createStore = () =>
     plugins: [
       vuexPersist.plugin,
       (store) => {
-        store.subscribe(
-          async () =>
-            await chrome.runtime.sendMessage({ type: 'settings-changed' })
-        )
+        store.subscribe(() => {
+          void chrome.runtime
+            .sendMessage({ type: 'settings-changed' })
+            .catch(() => undefined)
+        })
       },
     ],
   })

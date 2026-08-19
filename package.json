@@ -47,7 +47,7 @@
     "lint": "npm run lint:eslint && npm run lint:prettier",
     "lint:eslint": "eslint --ext .js,.ts,.vue --ignore-path .gitignore .",
     "lint:prettier": "prettier -c --ignore-path .gitignore .",
-    "package": "npm run build && mkdir -p dist && zip -r dist/archive.zip app",
+    "package": "npm run build && mkdir -p dist && zip -r dist/danmaku-flow-for-youtube-v$npm_package_version.zip app",
     "prepare": "husky install",
     "test": "npm run lint",
     "watch:dist": "mv3-hot-reload",

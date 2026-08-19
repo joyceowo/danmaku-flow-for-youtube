@@ -28,7 +28,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
+import { Locale } from '~/models'
 import { settingsStore } from '~/store'
 import { setLocale, t } from '~/utils/i18n'
 
@@ -41,11 +42,13 @@ const languages = [
 
 const language = computed({
   get: () => settingsStore.language || 'en',
-  set: (value) => {
+  set: (value: Locale) => {
     setLocale(value)
     settingsStore.setLanguage({ language: value })
   },
 })
+
+watch(language, setLocale, { immediate: true })
 
 const hideFullscreenChat = computed({
   get: () => {

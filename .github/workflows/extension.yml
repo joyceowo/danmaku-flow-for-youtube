@@ -10,10 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: '16'
+          node-version: '20'
           cache: 'npm'
       - run: npm ci
       - run: npm test
@@ -21,4 +21,4 @@ jobs:
       - uses: softprops/action-gh-release@v1
         with:
           draft: true
-          files: dist/archive.zip
+          files: dist/danmaku-flow-for-youtube-${{ github.ref_name }}.zip

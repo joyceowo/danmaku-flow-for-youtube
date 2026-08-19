@@ -78,18 +78,21 @@ const settingsChanged = async () => {
   const tabs = await chrome.tabs.query({})
   for (const tab of tabs) {
     try {
-      tab.id &&
-        chrome.tabs.sendMessage(tab.id, {
+      if (tab.id) {
+        await chrome.tabs.sendMessage(tab.id, {
           type: 'settings-changed',
           data: { settings },
         })
+      }
     } catch (e) {} // eslint-disable-line no-empty
   }
 }
 
 chrome.tabs.onUpdated.addListener(async (tabId, changeInfo) => {
   if (changeInfo.url) {
-    await chrome.tabs.sendMessage(tabId, { type: 'url-changed' })
+    try {
+      await chrome.tabs.sendMessage(tabId, { type: 'url-changed' })
+    } catch (e) {} // eslint-disable-line no-empty
   }
 })
 

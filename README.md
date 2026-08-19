@@ -42,7 +42,8 @@ Many thanks to the original author and the fork maintainer for creating and shar
 3. Enable Developer Mode by clicking the toggle switch next to **Developer mode**.
 4. Click the **LOAD UNPACKED** button and select the `app` directory.
 
-To create a distributable archive for this fork, run `npm run package` and use the generated `dist/archive.zip` file.
+To create a distributable archive, run `npm run package` and use the generated
+`dist/danmaku-flow-for-youtube-v<version>.zip` file.
 
 ## Development
 
@@ -62,7 +63,7 @@ npm run watch:src
 # lint the project
 npm run lint
 
-# create distributable zip in ./dist
+# create a versioned distributable zip in ./dist
 npm run package
 ```
 
