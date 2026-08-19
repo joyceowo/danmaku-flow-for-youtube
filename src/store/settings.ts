@@ -9,6 +9,7 @@ import {
   Settings,
   StackDirection,
   Style,
+  Theme,
 } from '~/models'
 
 const initialState: Settings = {
@@ -32,6 +33,7 @@ const initialState: Settings = {
   outlineRatio: 0.015,
   overflow: 'overlay',
   stackDirection: 'top_to_bottom',
+  theme: 'light',
   styles: {
     guest: {
       avatar: false,
@@ -93,6 +95,7 @@ export default class SettingsModule extends VuexModule {
   outlineRatio = initialState.outlineRatio
   overflow = initialState.overflow
   stackDirection = initialState.stackDirection
+  theme = initialState.theme
   styles = initialState.styles
   visibilities = initialState.visibilities
 
@@ -202,6 +205,10 @@ export default class SettingsModule extends VuexModule {
   @Mutation
   setStackDirection({ stackDirection }: { stackDirection: StackDirection }) {
     this.stackDirection = stackDirection
+  }
+  @Mutation
+  setTheme({ theme }: { theme: Theme }) {
+    this.theme = theme
   }
   @Mutation
   resetState() {

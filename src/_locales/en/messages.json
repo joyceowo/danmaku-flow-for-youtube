@@ -8,6 +8,9 @@
   "sectionBehavior": { "message": "Behavior" },
   "sectionOthers": { "message": "Others" },
   "language": { "message": "Language" },
+  "theme": { "message": "Theme" },
+  "themeLight": { "message": "Light" },
+  "themeDark": { "message": "Dark" },
   "resetSettings": { "message": "Reset Settings to Default" },
   "authorGuest": { "message": "Guest" },
   "authorMember": { "message": "Member" },
@@ -60,7 +63,7 @@
   },
   "supportDevelopment": { "message": "Support Development" },
   "supportDevelopmentHint": {
-    "message": "Danmaku Flow for YouTube is independently maintained. If you enjoy it, consider supporting future development."
+    "message": "Help keep Danmaku Flow independently maintained."
   },
   "supportViaPayPal": { "message": "Support via PayPal" },
   "flowMessages": { "message": "Flow messages" },

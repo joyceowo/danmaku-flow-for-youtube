@@ -8,6 +8,9 @@
   "sectionBehavior": { "message": "行為" },
   "sectionOthers": { "message": "其他" },
   "language": { "message": "語言" },
+  "theme": { "message": "主題" },
+  "themeLight": { "message": "淺色" },
+  "themeDark": { "message": "深色" },
   "resetSettings": { "message": "重設為預設值" },
   "authorGuest": { "message": "訪客" },
   "authorMember": { "message": "會員" },
@@ -54,7 +57,7 @@
   "alwaysShowChatHint": { "message": "YouTube Premiere 預設會隱藏聊天室。" },
   "supportDevelopment": { "message": "支持開發" },
   "supportDevelopmentHint": {
-    "message": "Danmaku Flow for YouTube 由獨立開發者維護。若你喜歡這個擴充功能，歡迎支持後續開發。"
+    "message": "協助 Danmaku Flow 持續由獨立開發者維護。"
   },
   "supportViaPayPal": { "message": "透過 PayPal 支持" },
   "flowMessages": { "message": "流動留言" },

@@ -8,6 +8,9 @@
   "sectionBehavior": { "message": "動作" },
   "sectionOthers": { "message": "その他" },
   "language": { "message": "言語" },
+  "theme": { "message": "テーマ" },
+  "themeLight": { "message": "ライト" },
+  "themeDark": { "message": "ダーク" },
   "resetSettings": { "message": "設定を初期値に戻す" },
   "authorGuest": { "message": "ゲスト" },
   "authorMember": { "message": "メンバー" },
@@ -56,7 +59,7 @@
   },
   "supportDevelopment": { "message": "開発を支援" },
   "supportDevelopmentHint": {
-    "message": "Danmaku Flow for YouTube は独立してメンテナンスされています。気に入っていただけたら、今後の開発を支援してください。"
+    "message": "Danmaku Flow の独立したメンテナンスを支援できます。"
   },
   "supportViaPayPal": { "message": "PayPal で支援" },
   "flowMessages": { "message": "コメントを流す" },

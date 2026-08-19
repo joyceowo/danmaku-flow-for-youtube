@@ -3,6 +3,7 @@ export type MessageType = 'super-chat' | 'super-sticker' | 'membership'
 export type EmojiStyle = 'image' | 'text' | 'none'
 export type HeightType = 'flexible' | 'fixed'
 export type StackDirection = 'top_to_bottom' | 'bottom_to_top'
+export type Theme = 'light' | 'dark'
 export type Overflow = 'overlay' | 'hidden'
 export type Locale = 'en' | 'ja' | 'zh_TW' | 'ko'
 export type Styles = { [authorType in AuthorType]: Style }
@@ -40,6 +41,7 @@ export type Settings = {
   outlineRatio: number
   overflow: Overflow
   stackDirection: StackDirection
+  theme: Theme
   styles: Styles
   visibilities: Visibilities
 }
