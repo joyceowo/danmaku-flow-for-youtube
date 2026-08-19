@@ -3,6 +3,7 @@ import {
   AuthorType,
   EmojiStyle,
   HeightType,
+  Locale,
   MessageType,
   Overflow,
   Settings,
@@ -22,6 +23,7 @@ const initialState: Settings = {
   extendedStyle: '',
   heightType: 'flexible',
   lineHeight: 64,
+  language: 'en',
   lines: 12,
   maxDisplays: 0,
   maxLines: 0,
@@ -82,6 +84,7 @@ export default class SettingsModule extends VuexModule {
   extendedStyle = initialState.extendedStyle
   heightType = initialState.heightType
   lineHeight = initialState.lineHeight
+  language = initialState.language
   lines = initialState.lines
   maxDisplays = initialState.maxDisplays
   maxLines = initialState.maxLines
@@ -163,6 +166,10 @@ export default class SettingsModule extends VuexModule {
   @Mutation
   setLineHeight({ lineHeight }: { lineHeight: number }) {
     this.lineHeight = lineHeight
+  }
+  @Mutation
+  setLanguage({ language }: { language: Locale }) {
+    this.language = language
   }
   @Mutation
   setLines({ lines }: { lines: number }) {

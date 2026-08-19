@@ -3,6 +3,7 @@ import downArrow from '~/assets/down-arrow.svg'
 import refresh from '~/assets/refresh.svg'
 import { querySelectorAsync } from '~/utils/dom-helper'
 import FlowController from '~/utils/flow-controller'
+import { setLocale, t } from '~/utils/i18n'
 
 const controller = new FlowController()
 let observer: MutationObserver | undefined
@@ -10,7 +11,7 @@ let observer: MutationObserver | undefined
 const menuButtonConfigs = [
   {
     svg: downArrow,
-    title: 'Follow New Messages',
+    titleKey: 'followNewMessages',
     className: 'ylcf-follow-button',
     onclick: async () =>
       await chrome.runtime.sendMessage({ type: 'menu-button-clicked' }),
@@ -18,7 +19,7 @@ const menuButtonConfigs = [
   },
   {
     svg: refresh,
-    title: 'Reload Frame',
+    titleKey: 'reloadFrame',
     className: 'ylcf-reload-button',
     onclick: () => window.location.reload(),
     isActive: () => false,
@@ -47,8 +48,8 @@ const addControlButton = () => {
 
   const button = document.createElement('button')
   button.classList.add('ylcf-control-button')
-  button.title = 'Flow messages'
-  button.setAttribute('aria-label', 'Flow messages')
+  button.title = t('flowMessages')
+  button.setAttribute('aria-label', t('flowMessages'))
   button.onclick = async () =>
     await chrome.runtime.sendMessage({ type: 'control-button-clicked' })
   button.innerHTML = chat
@@ -106,7 +107,7 @@ const addMenuButtons = () => {
       'ylcf-menu-button',
       config.className
     )
-    iconButton.title = config.title
+    iconButton.title = t(config.titleKey)
     iconButton.onclick = config.onclick
     iconButton.append(icon)
 
@@ -178,7 +179,9 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
       return sendResponse()
     case 'settings-changed':
       controller.settings = data.settings
-      return sendResponse()
+      setLocale(data.settings.language)
+      init().then(() => sendResponse())
+      return true
   }
 })
 
@@ -188,6 +191,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   controller.enabled = data.enabled
   controller.following = data.following
   controller.settings = data.settings
+  setLocale(data.settings.language)
 
   await init()
 

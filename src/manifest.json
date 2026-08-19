@@ -1,5 +1,8 @@
 {
   "manifest_version": 3,
+  "default_locale": "en",
+  "name": "Danmaku Flow for YouTube",
+  "description": "Display customizable danmaku-style live comments over YouTube videos.",
   "icons": {
     "128": "livecanvas-icon.png"
   },

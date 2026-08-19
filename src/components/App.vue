@@ -2,16 +2,16 @@
   <v-app>
     <v-main class="fill-height">
       <v-container fluid>
-        <div class="subtitle-2">General</div>
+        <div class="subtitle-2">{{ t('sectionGeneral') }}</div>
         <general-section class="mt-3 mb-5 mx-3" />
 
-        <div class="subtitle-2">Appearance</div>
+        <div class="subtitle-2">{{ t('sectionAppearance') }}</div>
         <appearance-section class="mt-3 mb-5 mx-3" />
 
-        <div class="subtitle-2">Behavior</div>
+        <div class="subtitle-2">{{ t('sectionBehavior') }}</div>
         <behavior-section class="mt-3 mb-5 mx-3" />
 
-        <div class="subtitle-2">Others</div>
+        <div class="subtitle-2">{{ t('sectionOthers') }}</div>
         <others-section class="mt-3 mb-5 mx-3" />
 
         <v-btn
@@ -20,7 +20,7 @@
           block
           @click="handleClickReset"
         >
-          Reset Settings to Default
+          {{ t('resetSettings') }}
         </v-btn>
       </v-container>
     </v-main>
@@ -33,6 +33,9 @@ import BehaviorSection from '~/components/BehaviorSection.vue'
 import GeneralSection from '~/components/GeneralSection.vue'
 import OthersSection from '~/components/OthersSection.vue'
 import { settingsStore } from '~/store'
+import { setLocale, t } from '~/utils/i18n'
+
+setLocale(settingsStore.language)
 
 const handleClickReset = () => {
   settingsStore.resetState()

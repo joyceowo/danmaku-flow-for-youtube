@@ -1,6 +1,6 @@
 <template>
   <div class="behavior-section">
-    <div class="caption">Display Time</div>
+    <div class="caption">{{ t('displayTime') }}</div>
     <v-slider
       v-model="displayTime"
       class="align-center mb-5"
@@ -27,7 +27,7 @@
       </template>
     </v-slider>
 
-    <div class="caption">Delay Time</div>
+    <div class="caption">{{ t('delayTime') }}</div>
     <v-slider
       v-model="delayTime"
       class="align-center mb-5"
@@ -54,7 +54,7 @@
       </template>
     </v-slider>
 
-    <div class="caption">Max Lines</div>
+    <div class="caption">{{ t('maxLines') }}</div>
     <v-slider
       v-model="maxLines"
       class="align-center mb-5"
@@ -76,7 +76,7 @@
       </template>
     </v-slider>
 
-    <div class="caption">Max Displays per second (Infinite if set to 0)</div>
+    <div class="caption">{{ t('maxDisplaysPerSecond') }}</div>
     <v-slider
       v-model="maxDisplays"
       class="align-center mb-5"
@@ -100,7 +100,7 @@
       </template>
     </v-slider>
 
-    <div class="caption">Max Active Displays (Infinite if set to 0)</div>
+    <div class="caption">{{ t('maxActiveDisplays') }}</div>
     <v-slider
       v-model="maxActiveDisplays"
       class="align-center mb-5"
@@ -124,7 +124,7 @@
       </template>
     </v-slider>
 
-    <div class="caption">Stack Directions</div>
+    <div class="caption">{{ t('stackDirections') }}</div>
     <v-select
       v-model="stackDirection"
       :items="stackDirections"
@@ -133,7 +133,7 @@
       class="mt-1 pt-0"
     />
 
-    <div class="caption">Overflow Mode</div>
+    <div class="caption">{{ t('overflowMode') }}</div>
     <v-select
       v-model="overflow"
       :items="overflows"
@@ -147,14 +147,15 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { settingsStore } from '~/store'
+import { t } from '~/utils/i18n'
 
 const stackDirections = [
-  { text: 'Top to Bottom', value: 'top_to_bottom' },
-  { text: 'Bottom to Top', value: 'bottom_to_top' },
+  { text: t('topToBottom'), value: 'top_to_bottom' },
+  { text: t('bottomToTop'), value: 'bottom_to_top' },
 ]
 const overflows = [
-  { text: 'Hidden', value: 'hidden' },
-  { text: 'Overlay', value: 'overlay' },
+  { text: t('hidden'), value: 'hidden' },
+  { text: t('overlay'), value: 'overlay' },
 ]
 
 const delayTime = computed({

@@ -73,12 +73,14 @@ module.exports = {
             return Buffer.from(
               JSON.stringify({
                 ...JSON.parse(content.toString()),
-                name: packageJson.productName || packageJson.name,
-                description: packageJson.description,
                 version: packageJson.version,
               })
             )
           },
+        },
+        {
+          from: '_locales',
+          to: '_locales',
         },
         'content-script.css',
         'content-script-iframe.css',

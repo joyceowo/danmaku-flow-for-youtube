@@ -6,7 +6,9 @@
       class="d-flex align-center"
     >
       <div class="caption text-capitalize" style="width: 100px">
-        {{ authorType }}
+        {{
+          t(`author${authorType.charAt(0).toUpperCase()}${authorType.slice(1)}`)
+        }}
       </div>
       <v-btn
         slot="activator"
@@ -71,13 +73,14 @@
 <script setup lang="ts">
 import { AuthorType, MessageType, Template } from '~/models'
 import { settingsStore } from '~/store'
+import { t } from '~/utils/i18n'
 
 const authorTypes = ['guest', 'member', 'moderator', 'owner', 'you']
 const messageTypes = ['super-chat', 'super-sticker', 'membership']
 const templates = [
-  { text: '1 line (without Author)', value: 'one-line-without-author' },
-  { text: '1 line (with Author)', value: 'one-line-with-author' },
-  { text: '2 lines', value: 'two-line' },
+  { text: t('templateOneLineWithoutAuthor'), value: 'one-line-without-author' },
+  { text: t('templateOneLineWithAuthor'), value: 'one-line-with-author' },
+  { text: t('templateTwoLines'), value: 'two-line' },
 ]
 
 const getColor = (authorType: AuthorType) => {
@@ -99,7 +102,12 @@ const isAvatar = (authorType: AuthorType) => {
   return settingsStore.styles[authorType].avatar
 }
 const getTitle = (messageType: MessageType) => {
-  return messageType.replace('-', ' ')
+  const titles: Record<MessageType, string> = {
+    'super-chat': t('messageSuperChat'),
+    'super-sticker': t('messageSuperSticker'),
+    membership: t('messageMembership'),
+  }
+  return titles[messageType]
 }
 
 const handleClickVisibility = (type: AuthorType | MessageType) => {

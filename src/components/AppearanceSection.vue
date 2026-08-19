@@ -2,7 +2,7 @@
   <div class="appearance-section">
     <div class="d-flex">
       <div class="mr-3">
-        <div class="caption">Height</div>
+        <div class="caption">{{ t('height') }}</div>
         <v-select
           v-model="heightType"
           :items="heightTypes"
@@ -14,7 +14,7 @@
       </div>
       <div class="flex-grow-1">
         <template v-if="heightType === 'fixed'">
-          <div class="caption">Line Height</div>
+          <div class="caption">{{ t('lineHeight') }}</div>
           <v-slider
             v-model="lineHeight"
             class="align-center mb-5"
@@ -42,7 +42,7 @@
           </v-slider>
         </template>
         <template v-else>
-          <div class="caption">Lines</div>
+          <div class="caption">{{ t('lines') }}</div>
           <v-slider
             v-model="lines"
             class="align-center mb-5"
@@ -71,7 +71,7 @@
       </div>
     </div>
 
-    <div class="caption">Max Width (Infinite if set to 0)</div>
+    <div class="caption">{{ t('maxWidth') }}</div>
     <v-slider
       v-model="maxWidth"
       class="align-center mb-5"
@@ -96,7 +96,7 @@
       </template>
     </v-slider>
 
-    <div class="caption">Opacity</div>
+    <div class="caption">{{ t('opacity') }}</div>
     <v-slider
       v-model="opacity"
       class="align-center mb-5"
@@ -122,10 +122,10 @@
       </template>
     </v-slider>
 
-    <div class="caption">Show Background (for Non-paid Messages)</div>
+    <div class="caption">{{ t('showBackground') }}</div>
     <v-switch v-model="background" class="mt-0" dense />
 
-    <div class="caption">Background Opacity</div>
+    <div class="caption">{{ t('backgroundOpacity') }}</div>
     <v-slider
       v-model="backgroundOpacity"
       class="align-center mb-5"
@@ -151,7 +151,7 @@
       </template>
     </v-slider>
 
-    <div class="caption">Outline Ratio</div>
+    <div class="caption">{{ t('outlineRatio') }}</div>
     <v-slider
       v-model="outlineRatio"
       class="align-center mb-5"
@@ -178,7 +178,7 @@
       </template>
     </v-slider>
 
-    <div class="caption">Emoji Style</div>
+    <div class="caption">{{ t('emojiStyle') }}</div>
     <v-select
       v-model="emojiStyle"
       :items="emojiStyles"
@@ -187,7 +187,7 @@
       class="mt-1 pt-0"
     />
 
-    <div class="caption">Extended Style</div>
+    <div class="caption">{{ t('extendedStyle') }}</div>
     <v-textarea
       v-model="extendedStyle"
       placeholder='font-family: "Yu Gothic", YuGothic, Meiryo;'
@@ -203,16 +203,17 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { settingsStore } from '~/store'
+import { t } from '~/utils/i18n'
 
 const heightTypes = [
-  { text: 'Flexible', value: 'flexible' },
-  { text: 'Fixed', value: 'fixed' },
+  { text: t('flexible'), value: 'flexible' },
+  { text: t('fixed'), value: 'fixed' },
 ]
 
 const emojiStyles = [
-  { text: 'Image', value: 'image' },
-  { text: 'Alternative Text', value: 'text' },
-  { text: 'None', value: 'none' },
+  { text: t('emojiImage'), value: 'image' },
+  { text: t('emojiAlternativeText'), value: 'text' },
+  { text: t('none'), value: 'none' },
 ]
 
 const background = computed({

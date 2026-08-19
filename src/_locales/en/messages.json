@@ -1,0 +1,64 @@
+{
+  "extensionName": { "message": "Danmaku Flow for YouTube" },
+  "extensionDescription": {
+    "message": "Display customizable danmaku-style live comments over YouTube videos."
+  },
+  "sectionGeneral": { "message": "General" },
+  "sectionAppearance": { "message": "Appearance" },
+  "sectionBehavior": { "message": "Behavior" },
+  "sectionOthers": { "message": "Others" },
+  "language": { "message": "Language" },
+  "resetSettings": { "message": "Reset Settings to Default" },
+  "authorGuest": { "message": "Guest" },
+  "authorMember": { "message": "Member" },
+  "authorModerator": { "message": "Moderator" },
+  "authorOwner": { "message": "Owner" },
+  "authorYou": { "message": "You" },
+  "messageSuperChat": { "message": "Super Chat" },
+  "messageSuperSticker": { "message": "Super Sticker" },
+  "messageMembership": { "message": "Membership" },
+  "templateOneLineWithoutAuthor": { "message": "1 line (without Author)" },
+  "templateOneLineWithAuthor": { "message": "1 line (with Author)" },
+  "templateTwoLines": { "message": "2 lines" },
+  "height": { "message": "Height" },
+  "lineHeight": { "message": "Line Height" },
+  "lines": { "message": "Lines" },
+  "maxWidth": { "message": "Max Width (Infinite if set to 0)" },
+  "opacity": { "message": "Opacity" },
+  "showBackground": { "message": "Show Background (for Non-paid Messages)" },
+  "backgroundOpacity": { "message": "Background Opacity" },
+  "outlineRatio": { "message": "Outline Ratio" },
+  "emojiStyle": { "message": "Emoji Style" },
+  "extendedStyle": { "message": "Extended Style" },
+  "flexible": { "message": "Flexible" },
+  "fixed": { "message": "Fixed" },
+  "emojiImage": { "message": "Image" },
+  "emojiAlternativeText": { "message": "Alternative Text" },
+  "none": { "message": "None" },
+  "displayTime": { "message": "Display Time" },
+  "delayTime": { "message": "Delay Time" },
+  "maxLines": { "message": "Max Lines" },
+  "maxDisplaysPerSecond": {
+    "message": "Max Displays per second (Infinite if set to 0)"
+  },
+  "maxActiveDisplays": {
+    "message": "Max Active Displays (Infinite if set to 0)"
+  },
+  "stackDirections": { "message": "Stack Directions" },
+  "overflowMode": { "message": "Overflow Mode" },
+  "topToBottom": { "message": "Top to Bottom" },
+  "bottomToTop": { "message": "Bottom to Top" },
+  "hidden": { "message": "Hidden" },
+  "overlay": { "message": "Overlay" },
+  "hideChatAfterLoad": { "message": "Hide Chat After Page Load" },
+  "hideChatAfterLoadHint": {
+    "message": "Turn this on to hide the chat panel after the page finishes loading."
+  },
+  "alwaysShowChat": { "message": "Always Show Chat" },
+  "alwaysShowChatHint": {
+    "message": "By default, the chat is hidden for YouTube Premieres."
+  },
+  "flowMessages": { "message": "Flow messages" },
+  "followNewMessages": { "message": "Follow New Messages" },
+  "reloadFrame": { "message": "Reload Frame" }
+}
