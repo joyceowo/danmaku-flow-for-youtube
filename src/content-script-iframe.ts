@@ -191,7 +191,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   await init()
 
-  window.addEventListener('unload', () => {
+  window.addEventListener('pagehide', () => {
     disconnect()
     controller.clear()
     removeControlButton()

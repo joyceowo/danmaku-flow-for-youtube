@@ -9,9 +9,10 @@ easier to manage during busy streams.
 
 ## Acknowledgements
 
-This project is based on and inspired by the original
-[subdiox/youtube-live-chat-flow](https://github.com/subdiox/youtube-live-chat-flow).
-Many thanks to the original author for creating and sharing the project.
+This project is based on and inspired by the work of
+[tsukumijima/youtube-live-chat-flow](https://github.com/tsukumijima/youtube-live-chat-flow)
+and its [subdiox/youtube-live-chat-flow](https://github.com/subdiox/youtube-live-chat-flow) fork.
+Many thanks to the original author and the fork maintainer for creating and sharing the project.
 
 ## Features
 
