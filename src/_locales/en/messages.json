@@ -84,7 +84,7 @@
     "message": "Help keep Danmaku Flow independently maintained."
   },
   "supportViaPayPal": { "message": "Support via PayPal" },
-  "flowMessages": { "message": "Flow messages" },
+  "flowMessages": { "message": "Toggle Danmaku" },
   "followNewMessages": { "message": "Follow New Messages" },
   "reloadFrame": { "message": "Reload Frame" }
 }

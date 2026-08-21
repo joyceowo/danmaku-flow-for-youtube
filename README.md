@@ -22,7 +22,7 @@ Many thanks to the original author and the fork maintainer for creating and shar
 - Support Super Chats, Super Stickers, and Membership messages.
 - Adjust layout behavior such as line count, max lines, stacking direction, and overflow mode.
 - Move the chat input to the video controls area and add helper buttons to the chat list.
-- Toggle flowing comments with the **Flow messages** button in the YouTube player controls.
+- Toggle flowing comments with the **Toggle Danmaku** button in the YouTube player controls.
 - **Hide Chat After Page Load**: hide the chat panel after the page finishes loading while
   flowing comments are enabled; the chat reappears when they are disabled.
 - **Always Show Chat**: keep the chat panel visible for YouTube Premieres, where it is hidden

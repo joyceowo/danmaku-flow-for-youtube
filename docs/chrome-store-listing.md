@@ -29,7 +29,7 @@ Key features:
 - Control message templates, author name visibility, and avatar display for different user types.
 - Support Super Chats, Super Stickers, and Membership messages.
 - Limit message rate and active message count for smoother playback on busy streams.
-- Toggle flowing comments with the **Flow messages** button in the YouTube player controls.
+- Toggle flowing comments with the **Toggle Danmaku** button in the YouTube player controls.
 - **Hide Chat After Page Load** hides the chat panel while flowing comments are enabled and restores it when they are disabled.
 - **Always Show Chat** keeps the chat panel visible for YouTube Premieres, where it is hidden by default.
 
@@ -48,7 +48,7 @@ Danmaku Flow for YouTube 能把 YouTube 直播與首播聊天室轉成日系彈�
 - 可依不同使用者類型設定訊息版型、作者名稱顯示與頭像顯示方式。
 - 支援 Super Chat、Super Sticker 與會員訊息。
 - 可限制每秒顯示數量與同時存在的訊息數，降低高流量聊天室造成的負擔。
-- 提供影片控制列上的 **Flow messages** 快捷按鈕，方便快速啟用或停用彈幕。
+- 提供影片控制列上的 **開關彈幕** 快捷按鈕，方便快速啟用或停用彈幕。
 - **Hide Chat After Page Load** 會在彈幕啟用時於頁面載入後隱藏聊天室，停用彈幕時恢復顯示。
 - **Always Show Chat** 可在 YouTube Premiere 預設隱藏聊天室時，保持聊天室可見。
 

@@ -80,7 +80,7 @@
     "message": "Danmaku Flow の独立したメンテナンスを支援できます。"
   },
   "supportViaPayPal": { "message": "PayPal で支援" },
-  "flowMessages": { "message": "コメントを流す" },
+  "flowMessages": { "message": "弾幕を切り替え" },
   "followNewMessages": { "message": "新しいメッセージに追従" },
   "reloadFrame": { "message": "チャットを再読み込み" }
 }

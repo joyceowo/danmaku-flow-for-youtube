@@ -78,7 +78,7 @@
     "message": "協助 Danmaku Flow 持續由獨立開發者維護。"
   },
   "supportViaPayPal": { "message": "透過 PayPal 支持" },
-  "flowMessages": { "message": "流動留言" },
+  "flowMessages": { "message": "開關彈幕" },
   "followNewMessages": { "message": "跟隨新留言" },
   "reloadFrame": { "message": "重新載入聊天室" }
 }

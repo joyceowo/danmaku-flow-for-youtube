@@ -1,6 +1,7 @@
-import chat from '~/assets/chat.svg'
+import flowMessages from '~/assets/flow-messages.svg'
 import downArrow from '~/assets/down-arrow.svg'
 import refresh from '~/assets/refresh.svg'
+import { Settings } from '~/models'
 import { querySelectorAsync } from '~/utils/dom-helper'
 import FlowController from '~/utils/flow-controller'
 import { setLocale, t } from '~/utils/i18n'
@@ -8,13 +9,34 @@ import { setLocale, t } from '~/utils/i18n'
 const controller = new FlowController()
 let observer: MutationObserver | undefined
 
+const sendMessage = async <T>(message: object): Promise<T | undefined> => {
+  try {
+    return await chrome.runtime.sendMessage(message)
+  } catch (_error) {
+    return undefined
+  }
+}
+
+const getInitialData = async () => {
+  for (let attempt = 0; attempt < 5; attempt += 1) {
+    const data = await sendMessage<{
+      enabled: boolean
+      following: boolean
+      settings: Settings
+    }>({ type: 'iframe-loaded' })
+    if (data) {
+      return data
+    }
+    await new Promise((resolve) => window.setTimeout(resolve, 250))
+  }
+}
+
 const menuButtonConfigs = [
   {
     svg: downArrow,
     titleKey: 'followNewMessages',
     className: 'ylcf-follow-button',
-    onclick: async () =>
-      await chrome.runtime.sendMessage({ type: 'menu-button-clicked' }),
+    onclick: async () => await sendMessage({ type: 'menu-button-clicked' }),
     isActive: () => controller.following,
   },
   {
@@ -28,7 +50,12 @@ const menuButtonConfigs = [
 
 const updateControlButton = () => {
   const button = parent.document.querySelector('.ylcf-control-button')
-  button && button.setAttribute('data-enabled', String(controller.enabled))
+  if (!button) {
+    return
+  }
+
+  button.setAttribute('data-enabled', String(controller.enabled))
+  button.setAttribute('aria-pressed', String(controller.enabled))
 }
 
 const removeControlButton = () => {
@@ -51,8 +78,8 @@ const addControlButton = () => {
   button.title = t('flowMessages')
   button.setAttribute('aria-label', t('flowMessages'))
   button.onclick = async () =>
-    await chrome.runtime.sendMessage({ type: 'control-button-clicked' })
-  button.innerHTML = chat
+    await sendMessage({ type: 'control-button-clicked' })
+  button.innerHTML = flowMessages
 
   // Change SVG viewBox
   const svg = button.querySelector('svg')
@@ -185,7 +212,10 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
 })
 
 document.addEventListener('DOMContentLoaded', async () => {
-  const data = await chrome.runtime.sendMessage({ type: 'iframe-loaded' })
+  const data = await getInitialData()
+  if (!data) {
+    return
+  }
 
   controller.enabled = data.enabled
   controller.following = data.following

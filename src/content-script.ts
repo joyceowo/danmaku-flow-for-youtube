@@ -4,6 +4,26 @@ import { querySelectorAsync } from '~/utils/dom-helper'
 let settings: Settings
 let flowMessagesEnabled = true
 
+const sendMessage = async <T>(message: object): Promise<T | undefined> => {
+  try {
+    return await chrome.runtime.sendMessage(message)
+  } catch (_error) {
+    return undefined
+  }
+}
+
+const getInitialData = async () => {
+  for (let attempt = 0; attempt < 5; attempt += 1) {
+    const data = await sendMessage<{ settings: Settings; enabled: boolean }>({
+      type: 'content-loaded',
+    })
+    if (data) {
+      return data
+    }
+    await new Promise((resolve) => window.setTimeout(resolve, 250))
+  }
+}
+
 const isVideoUrl = () => new URL(location.href).pathname === '/watch'
 
 const waitForChatContainer = async (timeout = 15000) => {
@@ -117,7 +137,11 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
 })
 
 document.addEventListener('DOMContentLoaded', async () => {
-  const data = await chrome.runtime.sendMessage({ type: 'content-loaded' })
+  const data = await getInitialData()
+  if (!data) {
+    return
+  }
+
   settings = data.settings
   flowMessagesEnabled = data.enabled
   await init()
