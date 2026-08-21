@@ -21,7 +21,9 @@ Danmaku Flow for YouTube is independently developed and maintained. If it
 makes your streams or watch parties more enjoyable, consider supporting future
 updates and maintenance.
 
-[![Support Danmaku Flow](https://img.shields.io/badge/Support%20Danmaku%20Flow-PayPal-00457C?logo=paypal&logoColor=white&style=for-the-badge)](https://paypal.me/OwOJoyce)
+Click the button below to support Danmaku Flow via PayPal.
+
+[![Support Danmaku Flow via PayPal](https://img.shields.io/badge/Support%20Danmaku%20Flow-Donate%20via%20PayPal-00457C?logo=paypal&logoColor=white&style=for-the-badge)](https://paypal.me/OwOJoyce)
 
 ## Acknowledgements
 
