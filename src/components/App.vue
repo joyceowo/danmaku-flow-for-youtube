@@ -2,6 +2,9 @@
   <v-app :class="{ 'dark-theme': theme === 'dark' }">
     <v-main class="fill-height">
       <v-container fluid>
+        <div class="subtitle-2">{{ t('sectionQuickSetup') }}</div>
+        <display-mode-section class="mt-3 mb-5 mx-3" />
+
         <div class="subtitle-2">{{ t('sectionGeneral') }}</div>
         <general-section class="mt-3 mb-5 mx-3" />
 
@@ -30,9 +33,10 @@
 <script setup lang="ts">
 import AppearanceSection from '~/components/AppearanceSection.vue'
 import BehaviorSection from '~/components/BehaviorSection.vue'
+import DisplayModeSection from '~/components/DisplayModeSection.vue'
 import GeneralSection from '~/components/GeneralSection.vue'
 import OthersSection from '~/components/OthersSection.vue'
-import { computed, watch } from 'vue'
+import { computed, nextTick, watch } from 'vue'
 import { Theme } from '~/models'
 import { applyTheme } from '~/plugins/vuetify'
 import { settingsStore } from '~/store'
@@ -44,8 +48,12 @@ const theme = computed<Theme>(() => settingsStore.theme || 'light')
 
 watch(theme, applyTheme, { immediate: true })
 
-const handleClickReset = () => {
+const handleClickReset = async () => {
   settingsStore.resetState()
+  await nextTick()
+  window.setTimeout(() => {
+    settingsStore.finishApplyingDisplayMode({ displayMode: 'default' })
+  }, 0)
 }
 </script>
 

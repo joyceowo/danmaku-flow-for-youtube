@@ -4,6 +4,7 @@
     "message": "Display customizable danmaku-style live comments over YouTube videos."
   },
   "sectionGeneral": { "message": "General" },
+  "sectionQuickSetup": { "message": "Quick Setup" },
   "sectionAppearance": { "message": "Appearance" },
   "sectionBehavior": { "message": "Behavior" },
   "sectionOthers": { "message": "Others" },
@@ -40,6 +41,23 @@
   "none": { "message": "None" },
   "displayTime": { "message": "Display Time" },
   "delayTime": { "message": "Delay Time" },
+  "displayMode": { "message": "Display Mode" },
+  "displayModeVideo": { "message": "Game" },
+  "displayModeVideoHint": {
+    "message": "Keeps more of the video visible for games, tutorials, and videos."
+  },
+  "displayModeChat": { "message": "Chat" },
+  "displayModeChatHint": {
+    "message": "Shows enough messages across the full player for live chat and watch-alongs."
+  },
+  "displayModeDefault": { "message": "Default" },
+  "displayModeDefaultHint": {
+    "message": "Full-player danmaku by default. Busy moments may overlap and use more resources."
+  },
+  "displayModeCustom": { "message": "Custom" },
+  "displayModeCustomHint": {
+    "message": "Custom settings. Select a mode to apply its recommended values."
+  },
   "maxLines": { "message": "Max Lines" },
   "maxDisplaysPerSecond": {
     "message": "Max Displays per second (Infinite if set to 0)"

@@ -1,3 +1,4 @@
+const path = require('path')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
@@ -62,6 +63,11 @@ module.exports = {
   plugins: [
     new CopyWebpackPlugin({
       patterns: [
+        {
+          from: path.resolve(__dirname, 'LICENSE'),
+          to: 'LICENSE',
+          toType: 'file',
+        },
         {
           from: 'livecanvas-icon.png',
           to: 'icon.png',

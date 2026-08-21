@@ -73,15 +73,18 @@ const toggleFollowing = async (tabId: number) => {
   })
 }
 
-const settingsChanged = async () => {
-  const settings = await getSettings()
+const settingsChanged = async (settings?: unknown) => {
+  const currentSettings = settings || (await getSettings())
+  await chrome.storage.local.set({
+    vuex: JSON.stringify({ settings: currentSettings }),
+  })
   const tabs = await chrome.tabs.query({})
   for (const tab of tabs) {
     try {
       if (tab.id) {
         await chrome.tabs.sendMessage(tab.id, {
           type: 'settings-changed',
-          data: { settings },
+          data: { settings: currentSettings },
         })
       }
     } catch (e) {} // eslint-disable-line no-empty
@@ -122,7 +125,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       }
       return
     case 'settings-changed':
-      settingsChanged().then(() => sendResponse())
+      settingsChanged(message.data?.settings).then(() => sendResponse())
       return true
   }
 })

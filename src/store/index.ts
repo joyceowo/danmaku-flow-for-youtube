@@ -39,22 +39,26 @@ const createStore = () =>
     plugins: [
       vuexPersist.plugin,
       (store) => {
-        store.subscribe(() => {
+        store.subscribe((_mutation, state) => {
           void chrome.runtime
-            .sendMessage({ type: 'settings-changed' })
+            .sendMessage({
+              type: 'settings-changed',
+              data: { settings: state.settings },
+            })
             .catch(() => undefined)
         })
       },
     ],
   })
 
+const store = createStore()
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const readyStore = async () => {
-  const store = createStore()
   // @see https://github.com/championswimmer/vuex-persist#how-to-know-when-async-store-has-been-replaced
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   await (store as any).restored
   return store
 }
 
-export const settingsStore = getModule(settings, createStore())
+export const settingsStore = getModule(settings, store)

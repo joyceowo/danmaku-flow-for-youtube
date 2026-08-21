@@ -1,7 +1,7 @@
 {
   "name": "danmaku-flow-for-youtube",
   "description": "Display customizable danmaku-style live comments over YouTube videos.",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "dependencies": {
     "@fiahfy/semaphore": "^0.0.2",
     "@types/node": "^18.14.0",

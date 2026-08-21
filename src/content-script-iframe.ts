@@ -180,8 +180,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
     case 'settings-changed':
       controller.settings = data.settings
       setLocale(data.settings.language)
-      init().then(() => sendResponse())
-      return true
+      return sendResponse()
   }
 })
 

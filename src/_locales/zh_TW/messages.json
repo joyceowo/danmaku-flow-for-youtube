@@ -4,6 +4,7 @@
     "message": "在 YouTube 影片上顯示可自訂的彈幕式即時留言。"
   },
   "sectionGeneral": { "message": "一般設定" },
+  "sectionQuickSetup": { "message": "快速設定" },
   "sectionAppearance": { "message": "外觀" },
   "sectionBehavior": { "message": "行為" },
   "sectionOthers": { "message": "其他" },
@@ -40,6 +41,23 @@
   "none": { "message": "無" },
   "displayTime": { "message": "顯示時間" },
   "delayTime": { "message": "延遲時間" },
+  "displayMode": { "message": "顯示模式" },
+  "displayModeVideo": { "message": "遊戲" },
+  "displayModeVideoHint": {
+    "message": "減少遮擋畫面，適合遊戲、教學與影片內容。"
+  },
+  "displayModeChat": { "message": "聊天互動" },
+  "displayModeChatHint": {
+    "message": "在全畫面顯示足夠留言，適合直播聊天與一起看。"
+  },
+  "displayModeDefault": { "message": "預設" },
+  "displayModeDefaultHint": {
+    "message": "預設全畫面顯示彈幕；高峰時可能重疊並增加裝置負擔。"
+  },
+  "displayModeCustom": { "message": "自訂" },
+  "displayModeCustomHint": {
+    "message": "目前為自訂設定；選擇模式即可套用建議值。"
+  },
   "maxLines": { "message": "最大行數" },
   "maxDisplaysPerSecond": { "message": "每秒最大顯示數（設為 0 表示無限制）" },
   "maxActiveDisplays": { "message": "同時最大顯示數（設為 0 表示無限制）" },

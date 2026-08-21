@@ -1,6 +1,8 @@
 import { Module, Mutation, VuexModule } from 'vuex-module-decorators'
+import { DisplayModePreset } from '~/config/display-modes'
 import {
   AuthorType,
+  DisplayMode,
   EmojiStyle,
   HeightType,
   Locale,
@@ -15,7 +17,8 @@ import {
 const initialState: Settings = {
   background: false,
   backgroundOpacity: 0.4,
-  hideFullscreenChat: false,
+  displayMode: 'default',
+  hideFullscreenChat: true,
   maxActiveDisplays: 0,
   chatVisible: true,
   delayTime: 0,
@@ -25,11 +28,11 @@ const initialState: Settings = {
   heightType: 'flexible',
   lineHeight: 64,
   language: 'en',
-  lines: 12,
+  lines: 20,
   maxDisplays: 0,
   maxLines: 0,
   maxWidth: 200,
-  opacity: 0.8,
+  opacity: 0.75,
   outlineRatio: 0.015,
   overflow: 'overlay',
   stackDirection: 'top_to_bottom',
@@ -73,10 +76,17 @@ const initialState: Settings = {
   },
 }
 
+let isApplyingDisplayMode = false
+
+const setCustomDisplayMode = (settings: { displayMode: DisplayMode }) => {
+  if (!isApplyingDisplayMode) settings.displayMode = 'custom'
+}
+
 @Module({ name: 'settings' })
 export default class SettingsModule extends VuexModule {
   background = initialState.background
   backgroundOpacity = initialState.backgroundOpacity
+  displayMode = initialState.displayMode
   hideFullscreenChat = initialState.hideFullscreenChat
   maxActiveDisplays = initialState.maxActiveDisplays
   chatVisible = true
@@ -124,11 +134,33 @@ export default class SettingsModule extends VuexModule {
   }
   @Mutation
   setBackground({ background }: { background: boolean }) {
+    if (this.background === background) return
     this.background = background
+    setCustomDisplayMode(this)
   }
   @Mutation
   setBackgroundOpacity({ backgroundOpacity }: { backgroundOpacity: number }) {
+    if (this.backgroundOpacity === backgroundOpacity) return
     this.backgroundOpacity = backgroundOpacity
+    setCustomDisplayMode(this)
+  }
+  @Mutation
+  setDisplayMode({ displayMode }: { displayMode: DisplayMode }) {
+    this.displayMode = displayMode
+  }
+  @Mutation
+  applyDisplayMode({
+    displayMode,
+    ...preset
+  }: { displayMode: Exclude<DisplayMode, 'custom'> } & DisplayModePreset) {
+    isApplyingDisplayMode = true
+    Object.assign(this, preset)
+    this.displayMode = displayMode
+  }
+  @Mutation
+  finishApplyingDisplayMode({ displayMode }: { displayMode: DisplayMode }) {
+    isApplyingDisplayMode = false
+    this.displayMode = displayMode
   }
   @Mutation
   setHideFullscreenChat({
@@ -140,7 +172,9 @@ export default class SettingsModule extends VuexModule {
   }
   @Mutation
   setMaxActiveDisplays({ maxActiveDisplays }: { maxActiveDisplays: number }) {
+    if (this.maxActiveDisplays === maxActiveDisplays) return
     this.maxActiveDisplays = maxActiveDisplays
+    setCustomDisplayMode(this)
   }
   @Mutation
   setChatVisible({ chatVisible }: { chatVisible: boolean }) {
@@ -148,27 +182,39 @@ export default class SettingsModule extends VuexModule {
   }
   @Mutation
   setDelayTime({ delayTime }: { delayTime: number }) {
+    if (this.delayTime === delayTime) return
     this.delayTime = delayTime
+    setCustomDisplayMode(this)
   }
   @Mutation
   setDisplayTime({ displayTime }: { displayTime: number }) {
+    if (this.displayTime === displayTime) return
     this.displayTime = displayTime
+    setCustomDisplayMode(this)
   }
   @Mutation
   setEmojiStyle({ emojiStyle }: { emojiStyle: EmojiStyle }) {
+    if (this.emojiStyle === emojiStyle) return
     this.emojiStyle = emojiStyle
+    setCustomDisplayMode(this)
   }
   @Mutation
   setExtendedStyle({ extendedStyle }: { extendedStyle: string }) {
+    if (this.extendedStyle === extendedStyle) return
     this.extendedStyle = extendedStyle
+    setCustomDisplayMode(this)
   }
   @Mutation
   setHeightType({ heightType }: { heightType: HeightType }) {
+    if (this.heightType === heightType) return
     this.heightType = heightType
+    setCustomDisplayMode(this)
   }
   @Mutation
   setLineHeight({ lineHeight }: { lineHeight: number }) {
+    if (this.lineHeight === lineHeight) return
     this.lineHeight = lineHeight
+    setCustomDisplayMode(this)
   }
   @Mutation
   setLanguage({ language }: { language: Locale }) {
@@ -176,35 +222,51 @@ export default class SettingsModule extends VuexModule {
   }
   @Mutation
   setLines({ lines }: { lines: number }) {
+    if (this.lines === lines) return
     this.lines = lines
+    setCustomDisplayMode(this)
   }
   @Mutation
   setMaxDisplays({ maxDisplays }: { maxDisplays: number }) {
+    if (this.maxDisplays === maxDisplays) return
     this.maxDisplays = maxDisplays
+    setCustomDisplayMode(this)
   }
   @Mutation
   setMaxLines({ maxLines }: { maxLines: number }) {
+    if (this.maxLines === maxLines) return
     this.maxLines = maxLines
+    setCustomDisplayMode(this)
   }
   @Mutation
   setMaxWidth({ maxWidth }: { maxWidth: number }) {
+    if (this.maxWidth === maxWidth) return
     this.maxWidth = maxWidth
+    setCustomDisplayMode(this)
   }
   @Mutation
   setOpacity({ opacity }: { opacity: number }) {
+    if (this.opacity === opacity) return
     this.opacity = opacity
+    setCustomDisplayMode(this)
   }
   @Mutation
   setOutlineRatio({ outlineRatio }: { outlineRatio: number }) {
+    if (this.outlineRatio === outlineRatio) return
     this.outlineRatio = outlineRatio
+    setCustomDisplayMode(this)
   }
   @Mutation
   setOverflow({ overflow }: { overflow: Overflow }) {
+    if (this.overflow === overflow) return
     this.overflow = overflow
+    setCustomDisplayMode(this)
   }
   @Mutation
   setStackDirection({ stackDirection }: { stackDirection: StackDirection }) {
+    if (this.stackDirection === stackDirection) return
     this.stackDirection = stackDirection
+    setCustomDisplayMode(this)
   }
   @Mutation
   setTheme({ theme }: { theme: Theme }) {
@@ -212,6 +274,7 @@ export default class SettingsModule extends VuexModule {
   }
   @Mutation
   resetState() {
+    isApplyingDisplayMode = true
     for (const [k, v] of Object.entries(initialState)) {
       ;(this as any)[k] = v // eslint-disable-line @typescript-eslint/no-explicit-any
     }
