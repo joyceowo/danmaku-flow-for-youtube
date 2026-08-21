@@ -17,8 +17,11 @@ easier to manage during busy streams.
 
 ## Support Development
 
-If Danmaku Flow for YouTube is useful to you, you can support its independent
-maintenance through [PayPal](https://paypal.me/OwOJoyce).
+Danmaku Flow for YouTube is independently developed and maintained. If it
+makes your streams or watch parties more enjoyable, consider supporting future
+updates and maintenance.
+
+[![Support Danmaku Flow](https://img.shields.io/badge/Support%20Danmaku%20Flow-PayPal-00457C?logo=paypal&logoColor=white&style=for-the-badge)](https://paypal.me/OwOJoyce)
 
 ## Acknowledgements
 
