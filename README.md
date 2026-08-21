@@ -7,6 +7,19 @@ messages into flowing on-screen overlays. It helps present live comments more
 like danmaku or floating subtitles, while keeping the display customizable and
 easier to manage during busy streams.
 
+## What's New in v0.1.5
+
+- Renamed the player control to **Toggle Danmaku** for clearer purpose.
+- Added a dedicated flowing-comment icon to distinguish the extension control
+  from YouTube's built-in chat controls.
+- Improved initialization resilience after an extension service-worker reload,
+  so **Hide Chat After Page Load** can apply reliably.
+
+## Support Development
+
+If Danmaku Flow for YouTube is useful to you, you can support its independent
+maintenance through [PayPal](https://paypal.me/OwOJoyce).
+
 ## Acknowledgements
 
 This project is based on and inspired by the work of
