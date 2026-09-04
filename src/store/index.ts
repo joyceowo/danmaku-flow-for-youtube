@@ -2,7 +2,11 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import VuexPersistence from 'vuex-persist'
 import { getModule } from 'vuex-module-decorators'
-import settings from '~/store/settings'
+import { DisplayMode } from '~/models'
+import settings, {
+  createInitialModeProfiles,
+  modeSettingKeys,
+} from '~/store/settings'
 
 Vue.use(Vuex)
 
@@ -18,8 +22,34 @@ const vuexPersist = new VuexPersistence({
       state = JSON.parse(json)
     } catch (e) {} // eslint-disable-line no-empty
 
+    const savedState = state as any // eslint-disable-line @typescript-eslint/no-explicit-any
+    const savedSettings = savedState.settings
+    if (savedSettings && !savedSettings.modeProfiles) {
+      const legacyModes: Record<string, string> = {
+        compact: 'video',
+        standard: 'chat',
+        dense: 'default',
+        all: 'default',
+      }
+      const activeMode =
+        legacyModes[savedSettings.displayMode] ?? savedSettings.displayMode
+      const mode = (
+        ['video', 'chat', 'default', 'custom'].includes(activeMode)
+          ? activeMode
+          : 'custom'
+      ) as DisplayMode
+      const modeProfiles = createInitialModeProfiles()
+      for (const key of modeSettingKeys) {
+        if (savedSettings[key] !== undefined) {
+          ;(modeProfiles[mode] as any)[key] = savedSettings[key] // eslint-disable-line @typescript-eslint/no-explicit-any
+        }
+      }
+      savedSettings.displayMode = mode
+      savedSettings.modeProfiles = modeProfiles
+    }
+
     return {
-      ...state,
+      ...savedState,
       __storageReady: true,
     }
   },

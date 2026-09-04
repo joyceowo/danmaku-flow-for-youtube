@@ -45,6 +45,9 @@
   "displayTime": { "message": "Display Time" },
   "delayTime": { "message": "Delay Time" },
   "displayMode": { "message": "Display Mode" },
+  "displayModeHint": {
+    "message": "Choose a display mode. Each mode keeps its own Appearance and Behavior settings."
+  },
   "displayModeVideo": { "message": "Game" },
   "displayModeVideoHint": {
     "message": "Keeps more of the video visible for games, tutorials, and videos."

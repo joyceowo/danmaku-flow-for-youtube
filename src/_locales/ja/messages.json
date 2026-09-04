@@ -45,6 +45,9 @@
   "displayTime": { "message": "表示時間" },
   "delayTime": { "message": "遅延時間" },
   "displayMode": { "message": "表示モード" },
+  "displayModeHint": {
+    "message": "表示モードを選択します。各モードは外観と動作の設定を個別に保存します。"
+  },
   "displayModeVideo": { "message": "ゲーム" },
   "displayModeVideoHint": {
     "message": "ゲーム、解説、動画の画面を見やすく保ちます。"

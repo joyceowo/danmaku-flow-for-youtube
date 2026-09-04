@@ -43,6 +43,9 @@
   "displayTime": { "message": "顯示時間" },
   "delayTime": { "message": "延遲時間" },
   "displayMode": { "message": "顯示模式" },
+  "displayModeHint": {
+    "message": "選擇彈幕顯示模式；每個模式會分別保存外觀與行為設定。"
+  },
   "displayModeVideo": { "message": "遊戲" },
   "displayModeVideoHint": {
     "message": "減少遮擋畫面，適合遊戲、教學與影片內容。"

@@ -21,6 +21,28 @@ export type Style = {
   template: Template
 }
 
+export type ModeSettings = {
+  background: boolean
+  backgroundOpacity: number
+  delayTime: number
+  displayTime: number
+  emojiStyle: EmojiStyle
+  extendedStyle: string
+  heightType: HeightType
+  lineHeight: number
+  lines: number
+  maxActiveDisplays: number
+  maxDisplays: number
+  maxLines: number
+  maxWidth: number
+  opacity: number
+  outlineRatio: number
+  overflow: Overflow
+  stackDirection: StackDirection
+}
+
+export type ModeProfiles = Record<DisplayMode, ModeSettings>
+
 export type Settings = {
   background: boolean
   backgroundOpacity: number
@@ -39,6 +61,7 @@ export type Settings = {
   maxDisplays: number
   maxLines: number
   maxWidth: number
+  modeProfiles: ModeProfiles
   opacity: number
   outlineRatio: number
   overflow: Overflow

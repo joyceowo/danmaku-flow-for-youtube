@@ -1,11 +1,13 @@
 import { Module, Mutation, VuexModule } from 'vuex-module-decorators'
-import { DisplayModePreset } from '~/config/display-modes'
+import { displayModePresets, DisplayModePreset } from '~/config/display-modes'
 import {
   AuthorType,
   DisplayMode,
   EmojiStyle,
   HeightType,
   Locale,
+  ModeProfiles,
+  ModeSettings,
   MessageType,
   Overflow,
   Settings,
@@ -14,28 +16,52 @@ import {
   Theme,
 } from '~/models'
 
+const createModeSettings = (preset: DisplayModePreset): ModeSettings => ({
+  ...preset,
+  extendedStyle: '',
+  lineHeight: 64,
+})
+
+export const createInitialModeProfiles = (): ModeProfiles => {
+  const defaultSettings = createModeSettings(displayModePresets.default)
+  return {
+    video: createModeSettings(displayModePresets.video),
+    chat: createModeSettings(displayModePresets.chat),
+    default: defaultSettings,
+    custom: { ...defaultSettings },
+  }
+}
+
+const initialModeProfiles = createInitialModeProfiles()
+const defaultModeSettings = initialModeProfiles.default
+
+export const modeSettingKeys: (keyof ModeSettings)[] = [
+  'background',
+  'backgroundOpacity',
+  'delayTime',
+  'displayTime',
+  'emojiStyle',
+  'extendedStyle',
+  'heightType',
+  'lineHeight',
+  'lines',
+  'maxActiveDisplays',
+  'maxDisplays',
+  'maxLines',
+  'maxWidth',
+  'opacity',
+  'outlineRatio',
+  'overflow',
+  'stackDirection',
+]
+
 const initialState: Settings = {
-  background: false,
-  backgroundOpacity: 0.4,
+  ...defaultModeSettings,
   displayMode: 'default',
   hideFullscreenChat: true,
-  maxActiveDisplays: 0,
   chatVisible: true,
-  delayTime: 0,
-  displayTime: 5,
-  emojiStyle: 'image',
-  extendedStyle: '',
-  heightType: 'flexible',
-  lineHeight: 64,
   language: 'en',
-  lines: 20,
-  maxDisplays: 0,
-  maxLines: 0,
-  maxWidth: 200,
-  opacity: 0.75,
-  outlineRatio: 0.015,
-  overflow: 'overlay',
-  stackDirection: 'top_to_bottom',
+  modeProfiles: initialModeProfiles,
   theme: 'light',
   styles: {
     guest: {
@@ -76,10 +102,19 @@ const initialState: Settings = {
   },
 }
 
-let isApplyingDisplayMode = false
-
-const setCustomDisplayMode = (settings: { displayMode: DisplayMode }) => {
-  if (!isApplyingDisplayMode) settings.displayMode = 'custom'
+const updateModeSetting = <K extends keyof ModeSettings>(
+  settings: SettingsModule,
+  key: K,
+  value: ModeSettings[K]
+) => {
+  settings[key] = value as never
+  settings.modeProfiles = {
+    ...settings.modeProfiles,
+    [settings.displayMode]: {
+      ...settings.modeProfiles[settings.displayMode],
+      [key]: value,
+    },
+  }
 }
 
 @Module({ name: 'settings' })
@@ -101,6 +136,7 @@ export default class SettingsModule extends VuexModule {
   maxDisplays = initialState.maxDisplays
   maxLines = initialState.maxLines
   maxWidth = initialState.maxWidth
+  modeProfiles = initialState.modeProfiles
   opacity = initialState.opacity
   outlineRatio = initialState.outlineRatio
   overflow = initialState.overflow
@@ -135,31 +171,24 @@ export default class SettingsModule extends VuexModule {
   @Mutation
   setBackground({ background }: { background: boolean }) {
     if (this.background === background) return
-    this.background = background
-    setCustomDisplayMode(this)
+    updateModeSetting(this, 'background', background)
   }
   @Mutation
   setBackgroundOpacity({ backgroundOpacity }: { backgroundOpacity: number }) {
     if (this.backgroundOpacity === backgroundOpacity) return
-    this.backgroundOpacity = backgroundOpacity
-    setCustomDisplayMode(this)
+    updateModeSetting(this, 'backgroundOpacity', backgroundOpacity)
   }
   @Mutation
   setDisplayMode({ displayMode }: { displayMode: DisplayMode }) {
     this.displayMode = displayMode
   }
   @Mutation
-  applyDisplayMode({
-    displayMode,
-    ...preset
-  }: { displayMode: Exclude<DisplayMode, 'custom'> } & DisplayModePreset) {
-    isApplyingDisplayMode = true
-    Object.assign(this, preset)
+  applyDisplayMode({ displayMode }: { displayMode: DisplayMode }) {
+    Object.assign(this, this.modeProfiles[displayMode])
     this.displayMode = displayMode
   }
   @Mutation
   finishApplyingDisplayMode({ displayMode }: { displayMode: DisplayMode }) {
-    isApplyingDisplayMode = false
     this.displayMode = displayMode
   }
   @Mutation
@@ -173,8 +202,7 @@ export default class SettingsModule extends VuexModule {
   @Mutation
   setMaxActiveDisplays({ maxActiveDisplays }: { maxActiveDisplays: number }) {
     if (this.maxActiveDisplays === maxActiveDisplays) return
-    this.maxActiveDisplays = maxActiveDisplays
-    setCustomDisplayMode(this)
+    updateModeSetting(this, 'maxActiveDisplays', maxActiveDisplays)
   }
   @Mutation
   setChatVisible({ chatVisible }: { chatVisible: boolean }) {
@@ -183,38 +211,32 @@ export default class SettingsModule extends VuexModule {
   @Mutation
   setDelayTime({ delayTime }: { delayTime: number }) {
     if (this.delayTime === delayTime) return
-    this.delayTime = delayTime
-    setCustomDisplayMode(this)
+    updateModeSetting(this, 'delayTime', delayTime)
   }
   @Mutation
   setDisplayTime({ displayTime }: { displayTime: number }) {
     if (this.displayTime === displayTime) return
-    this.displayTime = displayTime
-    setCustomDisplayMode(this)
+    updateModeSetting(this, 'displayTime', displayTime)
   }
   @Mutation
   setEmojiStyle({ emojiStyle }: { emojiStyle: EmojiStyle }) {
     if (this.emojiStyle === emojiStyle) return
-    this.emojiStyle = emojiStyle
-    setCustomDisplayMode(this)
+    updateModeSetting(this, 'emojiStyle', emojiStyle)
   }
   @Mutation
   setExtendedStyle({ extendedStyle }: { extendedStyle: string }) {
     if (this.extendedStyle === extendedStyle) return
-    this.extendedStyle = extendedStyle
-    setCustomDisplayMode(this)
+    updateModeSetting(this, 'extendedStyle', extendedStyle)
   }
   @Mutation
   setHeightType({ heightType }: { heightType: HeightType }) {
     if (this.heightType === heightType) return
-    this.heightType = heightType
-    setCustomDisplayMode(this)
+    updateModeSetting(this, 'heightType', heightType)
   }
   @Mutation
   setLineHeight({ lineHeight }: { lineHeight: number }) {
     if (this.lineHeight === lineHeight) return
-    this.lineHeight = lineHeight
-    setCustomDisplayMode(this)
+    updateModeSetting(this, 'lineHeight', lineHeight)
   }
   @Mutation
   setLanguage({ language }: { language: Locale }) {
@@ -223,50 +245,42 @@ export default class SettingsModule extends VuexModule {
   @Mutation
   setLines({ lines }: { lines: number }) {
     if (this.lines === lines) return
-    this.lines = lines
-    setCustomDisplayMode(this)
+    updateModeSetting(this, 'lines', lines)
   }
   @Mutation
   setMaxDisplays({ maxDisplays }: { maxDisplays: number }) {
     if (this.maxDisplays === maxDisplays) return
-    this.maxDisplays = maxDisplays
-    setCustomDisplayMode(this)
+    updateModeSetting(this, 'maxDisplays', maxDisplays)
   }
   @Mutation
   setMaxLines({ maxLines }: { maxLines: number }) {
     if (this.maxLines === maxLines) return
-    this.maxLines = maxLines
-    setCustomDisplayMode(this)
+    updateModeSetting(this, 'maxLines', maxLines)
   }
   @Mutation
   setMaxWidth({ maxWidth }: { maxWidth: number }) {
     if (this.maxWidth === maxWidth) return
-    this.maxWidth = maxWidth
-    setCustomDisplayMode(this)
+    updateModeSetting(this, 'maxWidth', maxWidth)
   }
   @Mutation
   setOpacity({ opacity }: { opacity: number }) {
     if (this.opacity === opacity) return
-    this.opacity = opacity
-    setCustomDisplayMode(this)
+    updateModeSetting(this, 'opacity', opacity)
   }
   @Mutation
   setOutlineRatio({ outlineRatio }: { outlineRatio: number }) {
     if (this.outlineRatio === outlineRatio) return
-    this.outlineRatio = outlineRatio
-    setCustomDisplayMode(this)
+    updateModeSetting(this, 'outlineRatio', outlineRatio)
   }
   @Mutation
   setOverflow({ overflow }: { overflow: Overflow }) {
     if (this.overflow === overflow) return
-    this.overflow = overflow
-    setCustomDisplayMode(this)
+    updateModeSetting(this, 'overflow', overflow)
   }
   @Mutation
   setStackDirection({ stackDirection }: { stackDirection: StackDirection }) {
     if (this.stackDirection === stackDirection) return
-    this.stackDirection = stackDirection
-    setCustomDisplayMode(this)
+    updateModeSetting(this, 'stackDirection', stackDirection)
   }
   @Mutation
   setTheme({ theme }: { theme: Theme }) {
@@ -274,7 +288,6 @@ export default class SettingsModule extends VuexModule {
   }
   @Mutation
   resetState() {
-    isApplyingDisplayMode = true
     for (const [k, v] of Object.entries(initialState)) {
       ;(this as any)[k] = v // eslint-disable-line @typescript-eslint/no-explicit-any
     }

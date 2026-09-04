@@ -3,6 +3,7 @@
     <div class="display-mode-heading">
       <div class="subtitle-2">{{ t('displayMode') }}</div>
     </div>
+    <div class="display-mode-hint caption mt-1">{{ t('displayModeHint') }}</div>
     <div class="display-mode-toggle">
       <v-btn
         v-for="mode in modes"
@@ -16,16 +17,6 @@
       >
         {{ mode.text }}
       </v-btn>
-      <v-btn
-        class="display-mode-button"
-        :class="{
-          'display-mode-button--active': currentDisplayMode === 'custom',
-        }"
-        text
-        @click="settingsStore.setDisplayMode({ displayMode: 'custom' })"
-      >
-        {{ t('displayModeCustom') }}
-      </v-btn>
     </div>
     <div class="display-mode-description caption mt-2">{{ description }}</div>
   </div>
@@ -34,18 +25,14 @@
 <script setup lang="ts">
 import { computed, nextTick } from 'vue'
 import { DisplayMode } from '~/models'
-import {
-  displayModePresets,
-  DisplayModePreset,
-  PresetDisplayMode,
-} from '~/config/display-modes'
 import { settingsStore } from '~/store'
 import { t } from '~/utils/i18n'
 
 const modes = [
+  { text: t('displayModeDefault'), value: 'default' },
   { text: t('displayModeVideo'), value: 'video' },
   { text: t('displayModeChat'), value: 'chat' },
-  { text: t('displayModeDefault'), value: 'default' },
+  { text: t('displayModeCustom'), value: 'custom' },
 ] as const
 
 const currentDisplayMode = computed<DisplayMode>(() => {
@@ -73,9 +60,8 @@ const description = computed(() => {
   return descriptions[currentDisplayMode.value]
 })
 
-const applyMode = async (mode: PresetDisplayMode) => {
-  const preset: DisplayModePreset = displayModePresets[mode]
-  settingsStore.applyDisplayMode({ displayMode: mode, ...preset })
+const applyMode = async (mode: DisplayMode) => {
+  settingsStore.applyDisplayMode({ displayMode: mode })
   await nextTick()
   window.setTimeout(() => {
     settingsStore.finishApplyingDisplayMode({ displayMode: mode })
@@ -97,6 +83,10 @@ const applyMode = async (mode: PresetDisplayMode) => {
 .display-mode-description {
   margin-left: 12px;
   margin-right: 12px;
+}
+
+.display-mode-hint {
+  color: rgba(0, 0, 0, 0.6);
 }
 
 .display-mode-button {
