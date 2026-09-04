@@ -8,6 +8,7 @@ import { setLocale, t } from '~/utils/i18n'
 
 const controller = new FlowController()
 let observer: MutationObserver | undefined
+let chatHidden = false
 
 const sendMessage = async <T>(message: object): Promise<T | undefined> => {
   try {
@@ -20,7 +21,6 @@ const sendMessage = async <T>(message: object): Promise<T | undefined> => {
 const getInitialData = async () => {
   for (let attempt = 0; attempt < 5; attempt += 1) {
     const data = await sendMessage<{
-      enabled: boolean
       following: boolean
       settings: Settings
     }>({ type: 'iframe-loaded' })
@@ -49,13 +49,17 @@ const menuButtonConfigs = [
 ]
 
 const updateControlButton = () => {
-  const button = parent.document.querySelector('.ylcf-control-button')
+  const button = parent.document.querySelector<HTMLButtonElement>(
+    '.ylcf-control-button'
+  )
   if (!button) {
     return
   }
 
-  button.setAttribute('data-enabled', String(controller.enabled))
-  button.setAttribute('aria-pressed', String(controller.enabled))
+  button.title = t(chatHidden ? 'showChat' : 'hideChat')
+  button.setAttribute('aria-label', button.title)
+  button.setAttribute('data-hidden', String(chatHidden))
+  button.setAttribute('aria-pressed', String(chatHidden))
 }
 
 const removeControlButton = () => {
@@ -75,10 +79,8 @@ const addControlButton = () => {
 
   const button = document.createElement('button')
   button.classList.add('ylcf-control-button')
-  button.title = t('flowMessages')
-  button.setAttribute('aria-label', t('flowMessages'))
   button.onclick = async () =>
-    await sendMessage({ type: 'control-button-clicked' })
+    await sendMessage({ type: 'chat-visibility-button-clicked' })
   button.innerHTML = flowMessages
 
   // Change SVG viewBox
@@ -196,17 +198,15 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
     case 'url-changed':
       init().then(() => sendResponse())
       return true
-    case 'enabled-changed':
-      controller.enabled = data.enabled
-      updateControlButton()
-      return sendResponse()
     case 'following-changed':
       controller.following = data.following
       updateMenuButtons()
       return sendResponse()
     case 'settings-changed':
       controller.settings = data.settings
+      chatHidden = data.settings.hideFullscreenChat
       setLocale(data.settings.language)
+      updateControlButton()
       return sendResponse()
   }
 })
@@ -217,9 +217,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     return
   }
 
-  controller.enabled = data.enabled
+  controller.enabled = true
   controller.following = data.following
   controller.settings = data.settings
+  chatHidden = data.settings.hideFullscreenChat
   setLocale(data.settings.language)
 
   await init()

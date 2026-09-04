@@ -3,11 +3,14 @@
   "extensionDescription": {
     "message": "YouTube 動画上にカスタマイズ可能な弾幕形式のライブチャットを表示します。"
   },
-  "sectionGeneral": { "message": "一般" },
-  "sectionQuickSetup": { "message": "クイック設定" },
+  "sectionGeneral": { "message": "一般設定" },
+  "sectionGeneralHint": {
+    "message": "以下の設定は表示モードの影響を受けません。"
+  },
+  "sectionMessageStyle": { "message": "メッセージスタイル" },
+  "sectionAppAndChat": { "message": "アプリとチャット" },
   "sectionAppearance": { "message": "外観" },
   "sectionBehavior": { "message": "動作" },
-  "sectionOthers": { "message": "その他" },
   "language": { "message": "言語" },
   "theme": { "message": "テーマ" },
   "themeLight": { "message": "ライト" },
@@ -67,20 +70,17 @@
   "bottomToTop": { "message": "下から上" },
   "hidden": { "message": "非表示" },
   "overlay": { "message": "重ねて表示" },
-  "hideChatAfterLoad": { "message": "ページ読み込み後にチャットを隠す" },
+  "hideChatAfterLoad": { "message": "チャットを隠す" },
   "hideChatAfterLoadHint": {
-    "message": "有効にすると、ページの読み込み完了後にチャットパネルを隠します。"
-  },
-  "alwaysShowChat": { "message": "常にチャットを表示" },
-  "alwaysShowChatHint": {
-    "message": "YouTube Premiere では、初期設定でチャットが隠れています。"
+    "message": "フローコメント用にチャットを動作させたまま、チャットパネルを隠します。"
   },
   "supportDevelopment": { "message": "開発を支援" },
   "supportDevelopmentHint": {
     "message": "Danmaku Flow の独立したメンテナンスを支援できます。"
   },
   "supportViaPayPal": { "message": "PayPal で支援" },
-  "flowMessages": { "message": "弾幕を切り替え" },
+  "hideChat": { "message": "チャットを隠す" },
+  "showChat": { "message": "チャットを表示" },
   "followNewMessages": { "message": "新しいメッセージに追従" },
   "reloadFrame": { "message": "チャットを再読み込み" }
 }

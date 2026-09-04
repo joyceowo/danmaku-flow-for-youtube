@@ -1,7 +1,7 @@
 <template>
   <div class="display-mode-section">
     <div class="display-mode-heading">
-      <div class="caption">{{ t('displayMode') }}</div>
+      <div class="subtitle-2">{{ t('displayMode') }}</div>
     </div>
     <div class="display-mode-toggle">
       <v-btn
@@ -27,7 +27,7 @@
         {{ t('displayModeCustom') }}
       </v-btn>
     </div>
-    <div class="caption mt-2">{{ description }}</div>
+    <div class="display-mode-description caption mt-2">{{ description }}</div>
   </div>
 </template>
 
@@ -88,8 +88,15 @@ const applyMode = async (mode: PresetDisplayMode) => {
   display: grid;
   gap: 8px;
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-left: 12px;
+  margin-right: 12px;
   margin-top: 6px;
-  width: 100%;
+  width: calc(100% - 24px);
+}
+
+.display-mode-description {
+  margin-left: 12px;
+  margin-right: 12px;
 }
 
 .display-mode-button {

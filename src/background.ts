@@ -1,13 +1,11 @@
-import iconOff from '~/assets/livecanvas-icon-off.png'
 import iconOn from '~/assets/livecanvas-icon-on.png'
-import { readyStore } from '~/store'
+import { readyStore, settingsStore } from '~/store'
 
 interface TabState {
-  enabled: boolean
   following: boolean
 }
 
-const initialState = { enabled: true, following: true }
+const initialState = { following: true }
 let tabStates: { [tabId: number]: TabState } = {}
 
 const getSettings = async () => {
@@ -16,45 +14,42 @@ const getSettings = async () => {
 }
 
 const setIcon = async (tabId: number) => {
-  const path = tabStates[tabId] && tabStates[tabId].enabled ? iconOn : iconOff
-  await chrome.action.setIcon({ tabId, path })
+  await chrome.action.setIcon({ tabId, path: iconOn })
 }
 
-const contentLoaded = async (tabId?: number) => {
+const contentLoaded = async () => {
   const settings = await getSettings()
-  const enabled = tabId
-    ? tabStates[tabId]?.enabled ?? initialState.enabled
-    : initialState.enabled
-
-  return { settings, enabled }
+  return { settings }
 }
 
 const iframeLoaded = async (tabId: number) => {
-  const enabled = initialState.enabled
   const following = initialState.following
-  tabStates = { ...tabStates, [tabId]: { enabled, following } }
+  tabStates = { ...tabStates, [tabId]: { following } }
 
   await setIcon(tabId)
 
   const settings = await getSettings()
 
-  return { enabled, following, settings }
+  return { following, settings }
 }
 
-const toggleEnabled = async (tabId: number) => {
-  const enabled = !(tabStates[tabId] && tabStates[tabId].enabled)
-  initialState.enabled = enabled
-  tabStates = {
-    ...tabStates,
-    [tabId]: { ...(tabStates[tabId] ?? {}), enabled },
-  }
-
-  await setIcon(tabId)
-
-  await chrome.tabs.sendMessage(tabId, {
-    type: 'enabled-changed',
-    data: { enabled },
+const toggleChatVisibility = async () => {
+  await readyStore()
+  settingsStore.setHideFullscreenChat({
+    hideFullscreenChat: !settingsStore.hideFullscreenChat,
   })
+  // Send the new setting immediately instead of relying on the store
+  // subscriber to send a message back to this service worker.
+  await settingsChanged(await getSettings())
+}
+
+const showChat = async () => {
+  await readyStore()
+  if (!settingsStore.hideFullscreenChat) {
+    return
+  }
+  settingsStore.setHideFullscreenChat({ hideFullscreenChat: false })
+  await settingsChanged(await getSettings())
 }
 
 const toggleFollowing = async (tabId: number) => {
@@ -104,7 +99,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   const { tab } = sender
   switch (type) {
     case 'content-loaded':
-      contentLoaded(tab?.id).then((data) => sendResponse(data))
+      contentLoaded().then((data) => sendResponse(data))
       return true
     case 'iframe-loaded':
       if (tab?.id) {
@@ -112,9 +107,15 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         return true
       }
       return
-    case 'control-button-clicked':
+    case 'chat-visibility-button-clicked':
       if (tab?.id) {
-        toggleEnabled(tab.id).then(() => sendResponse())
+        toggleChatVisibility().then(() => sendResponse())
+        return true
+      }
+      return
+    case 'show-chat-after-fullscreen':
+      if (tab?.id) {
+        showChat().then(() => sendResponse())
         return true
       }
       return

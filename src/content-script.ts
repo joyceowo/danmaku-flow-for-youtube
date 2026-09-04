@@ -2,7 +2,6 @@ import { Settings } from '~/models'
 import { querySelectorAsync } from '~/utils/dom-helper'
 
 let settings: Settings
-let flowMessagesEnabled = true
 
 const sendMessage = async <T>(message: object): Promise<T | undefined> => {
   try {
@@ -14,7 +13,7 @@ const sendMessage = async <T>(message: object): Promise<T | undefined> => {
 
 const getInitialData = async () => {
   for (let attempt = 0; attempt < 5; attempt += 1) {
-    const data = await sendMessage<{ settings: Settings; enabled: boolean }>({
+    const data = await sendMessage<{ settings: Settings }>({
       type: 'content-loaded',
     })
     if (data) {
@@ -26,28 +25,30 @@ const getInitialData = async () => {
 
 const isVideoUrl = () => new URL(location.href).pathname === '/watch'
 
-const waitForChatContainer = async (timeout = 15000) => {
-  const existing = document.querySelector<HTMLElement>(
-    '#panels-full-bleed-container'
-  )
-  if (existing) {
+const chatContainerSelector =
+  '#panels-full-bleed-container, ytd-live-chat-frame'
+
+const getChatContainers = () =>
+  Array.from(document.querySelectorAll<HTMLElement>(chatContainerSelector))
+
+const waitForChatContainers = async (timeout = 15000) => {
+  const existing = getChatContainers()
+  if (existing.length > 0) {
     return existing
   }
 
-  return await new Promise<HTMLElement | null>((resolve) => {
+  return await new Promise<HTMLElement[]>((resolve) => {
     const expireTime = Date.now() + timeout
     const observer = new MutationObserver(() => {
-      const container = document.querySelector<HTMLElement>(
-        '#panels-full-bleed-container'
-      )
-      if (container) {
+      const containers = getChatContainers()
+      if (containers.length > 0) {
         observer.disconnect()
-        resolve(container)
+        resolve(containers)
         return
       }
       if (Date.now() > expireTime) {
         observer.disconnect()
-        resolve(null)
+        resolve([])
       }
     })
 
@@ -58,9 +59,7 @@ const waitForChatContainer = async (timeout = 15000) => {
 
     window.setTimeout(() => {
       observer.disconnect()
-      resolve(
-        document.querySelector<HTMLElement>('#panels-full-bleed-container')
-      )
+      resolve(getChatContainers())
     }, timeout)
   })
 }
@@ -70,17 +69,23 @@ const applyChatVisibility = async () => {
     return
   }
 
-  const chatContainer = await waitForChatContainer()
-  if (!chatContainer) {
+  const chatContainers = await waitForChatContainers()
+  if (chatContainers.length === 0) {
     return
   }
 
-  if (settings.hideFullscreenChat === true && flowMessagesEnabled) {
-    chatContainer.style.setProperty('display', 'none', 'important')
+  if (settings.hideFullscreenChat === true) {
+    chatContainers.forEach((container) => {
+      container.style.setProperty('display', 'none', 'important')
+    })
+    window.dispatchEvent(new Event('resize'))
     return
   }
 
-  chatContainer.style.removeProperty('display')
+  chatContainers.forEach((container) => {
+    container.style.removeProperty('display')
+  })
+  window.dispatchEvent(new Event('resize'))
 }
 
 const waitCollapsed = async () => {
@@ -104,10 +109,6 @@ const init = async () => {
 
   await applyChatVisibility()
 
-  if (!settings.chatVisible) {
-    return
-  }
-
   const collapsed = await waitCollapsed()
   if (!collapsed) {
     return
@@ -125,10 +126,6 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
     case 'url-changed':
       init().then(() => sendResponse())
       return true
-    case 'enabled-changed':
-      flowMessagesEnabled = data.enabled
-      applyChatVisibility().then(() => sendResponse())
-      return true
     case 'settings-changed':
       settings = data.settings
       applyChatVisibility().then(() => sendResponse())
@@ -143,6 +140,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   settings = data.settings
-  flowMessagesEnabled = data.enabled
   await init()
+
+  document.addEventListener('fullscreenchange', () => {
+    if (!document.fullscreenElement && settings.hideFullscreenChat) {
+      void sendMessage({ type: 'show-chat-after-fullscreen' })
+      return
+    }
+    void applyChatVisibility()
+  })
 })

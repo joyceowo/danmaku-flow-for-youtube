@@ -76,7 +76,7 @@
 }
 .ylcf-control-button:hover,
 .ylcf-control-button:focus,
-.ylcf-control-button[data-enabled='true'] {
+.ylcf-control-button[data-hidden='true'] {
   background: transparent !important;
   box-shadow: none !important;
 }
@@ -84,7 +84,7 @@
   color: rgba(255, 255, 255, 0.34);
   opacity: 1;
 }
-.ylcf-control-button[data-enabled='true'] > svg {
+.ylcf-control-button[data-hidden='true'] > svg {
   color: rgba(255, 255, 255, 1);
 }
 

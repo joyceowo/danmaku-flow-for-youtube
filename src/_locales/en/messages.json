@@ -3,11 +3,14 @@
   "extensionDescription": {
     "message": "Display customizable danmaku-style live comments over YouTube videos."
   },
-  "sectionGeneral": { "message": "General" },
-  "sectionQuickSetup": { "message": "Quick Setup" },
+  "sectionGeneral": { "message": "General Settings" },
+  "sectionGeneralHint": {
+    "message": "These settings are not affected by Display Mode."
+  },
+  "sectionMessageStyle": { "message": "Message Style" },
+  "sectionAppAndChat": { "message": "App & Chat" },
   "sectionAppearance": { "message": "Appearance" },
   "sectionBehavior": { "message": "Behavior" },
-  "sectionOthers": { "message": "Others" },
   "language": { "message": "Language" },
   "theme": { "message": "Theme" },
   "themeLight": { "message": "Light" },
@@ -71,20 +74,17 @@
   "bottomToTop": { "message": "Bottom to Top" },
   "hidden": { "message": "Hidden" },
   "overlay": { "message": "Overlay" },
-  "hideChatAfterLoad": { "message": "Hide Chat After Page Load" },
+  "hideChatAfterLoad": { "message": "Hide Chat" },
   "hideChatAfterLoadHint": {
-    "message": "Turn this on to hide the chat panel after the page finishes loading."
-  },
-  "alwaysShowChat": { "message": "Always Show Chat" },
-  "alwaysShowChatHint": {
-    "message": "By default, the chat is hidden for YouTube Premieres."
+    "message": "Hide the chat panel while keeping it active for flow messages."
   },
   "supportDevelopment": { "message": "Support Development" },
   "supportDevelopmentHint": {
     "message": "Help keep Danmaku Flow independently maintained."
   },
   "supportViaPayPal": { "message": "Support via PayPal" },
-  "flowMessages": { "message": "Toggle Danmaku" },
+  "hideChat": { "message": "Hide Chat" },
+  "showChat": { "message": "Show Chat" },
   "followNewMessages": { "message": "Follow New Messages" },
   "reloadFrame": { "message": "Reload Frame" }
 }

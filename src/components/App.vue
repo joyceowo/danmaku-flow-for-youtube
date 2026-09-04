@@ -2,11 +2,7 @@
   <v-app :class="{ 'dark-theme': theme === 'dark' }">
     <v-main class="fill-height">
       <v-container fluid>
-        <div class="subtitle-2">{{ t('sectionQuickSetup') }}</div>
-        <display-mode-section class="mt-3 mb-5 mx-3" />
-
-        <div class="subtitle-2">{{ t('sectionGeneral') }}</div>
-        <general-section class="mt-3 mb-5 mx-3" />
+        <display-mode-section class="mb-5" />
 
         <div class="subtitle-2">{{ t('sectionAppearance') }}</div>
         <appearance-section class="mt-3 mb-5 mx-3" />
@@ -14,7 +10,15 @@
         <div class="subtitle-2">{{ t('sectionBehavior') }}</div>
         <behavior-section class="mt-3 mb-5 mx-3" />
 
-        <div class="subtitle-2">{{ t('sectionOthers') }}</div>
+        <v-divider class="mb-5" />
+
+        <div class="subtitle-2">{{ t('sectionGeneral') }}</div>
+        <div class="caption mt-1">{{ t('sectionGeneralHint') }}</div>
+
+        <div class="subtitle-2 mt-4">{{ t('sectionMessageStyle') }}</div>
+        <general-section class="mt-3 mb-5 mx-3" />
+
+        <div class="subtitle-2">{{ t('sectionAppAndChat') }}</div>
         <others-section class="mt-3 mb-5 mx-3" />
 
         <v-btn

@@ -3,11 +3,14 @@
   "extensionDescription": {
     "message": "YouTube 동영상 위에 사용자 지정 가능한 다마쿠 스타일 라이브 채팅을 표시합니다."
   },
-  "sectionGeneral": { "message": "일반" },
-  "sectionQuickSetup": { "message": "빠른 설정" },
+  "sectionGeneral": { "message": "일반 설정" },
+  "sectionGeneralHint": {
+    "message": "아래 설정은 표시 모드의 영향을 받지 않습니다."
+  },
+  "sectionMessageStyle": { "message": "메시지 스타일" },
+  "sectionAppAndChat": { "message": "앱 및 채팅" },
   "sectionAppearance": { "message": "모양" },
   "sectionBehavior": { "message": "동작" },
-  "sectionOthers": { "message": "기타" },
   "language": { "message": "언어" },
   "theme": { "message": "테마" },
   "themeLight": { "message": "라이트" },
@@ -67,20 +70,17 @@
   "bottomToTop": { "message": "아래에서 위로" },
   "hidden": { "message": "숨김" },
   "overlay": { "message": "겹치기" },
-  "hideChatAfterLoad": { "message": "페이지 로드 후 채팅 숨기기" },
+  "hideChatAfterLoad": { "message": "채팅 숨기기" },
   "hideChatAfterLoadHint": {
-    "message": "켜면 페이지 로드가 완료된 후 채팅 패널을 숨깁니다."
-  },
-  "alwaysShowChat": { "message": "항상 채팅 표시" },
-  "alwaysShowChatHint": {
-    "message": "YouTube Premiere에서는 기본적으로 채팅이 숨겨집니다."
+    "message": "흐르는 댓글을 위해 채팅을 계속 활성 상태로 두고 패널만 숨깁니다."
   },
   "supportDevelopment": { "message": "개발 후원" },
   "supportDevelopmentHint": {
     "message": "Danmaku Flow의 독립적인 유지 관리를 도와주세요."
   },
   "supportViaPayPal": { "message": "PayPal로 후원" },
-  "flowMessages": { "message": "탄막 전환" },
+  "hideChat": { "message": "채팅 숨기기" },
+  "showChat": { "message": "채팅 표시" },
   "followNewMessages": { "message": "새 메시지 따라가기" },
   "reloadFrame": { "message": "채팅 다시 로드" }
 }

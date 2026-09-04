@@ -24,14 +24,6 @@
       persistent-hint
       dense
     />
-    <v-switch
-      v-model="chatVisible"
-      class="mt-0 pt-0"
-      :label="t('alwaysShowChat')"
-      :hint="t('alwaysShowChatHint')"
-      persistent-hint
-      dense
-    />
     <div class="support-card mt-5">
       <div class="d-flex align-center subtitle-2">
         <v-icon class="support-heading-icon mr-2" small
@@ -98,17 +90,6 @@ const hideFullscreenChat = computed({
   set: (value) => {
     settingsStore.setHideFullscreenChat({
       hideFullscreenChat: value,
-    })
-  },
-})
-
-const chatVisible = computed({
-  get: () => {
-    return settingsStore.chatVisible
-  },
-  set: (value) => {
-    settingsStore.setChatVisible({
-      chatVisible: value,
     })
   },
 })
