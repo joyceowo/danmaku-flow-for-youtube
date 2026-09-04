@@ -5,10 +5,16 @@ import { Settings } from '~/models'
 import { querySelectorAsync } from '~/utils/dom-helper'
 import FlowController from '~/utils/flow-controller'
 import { setLocale, t } from '~/utils/i18n'
+import { completeOnboarding, hasCompletedOnboarding } from '~/utils/onboarding'
 
 const controller = new FlowController()
 let observer: MutationObserver | undefined
 let chatHidden = false
+let controlEducationTimer: number | undefined
+
+const controlEducationFeatureId = 'fullscreenChatToggle'
+const controlEducationVersion = 1
+const legacyControlEducationStorageKey = 'chatVisibilityControlEducationSeen'
 
 const needsFlowReset = (previous: Settings | undefined, next: Settings) => {
   if (!previous) {
@@ -82,8 +88,59 @@ const updateControlButton = () => {
 }
 
 const removeControlButton = () => {
+  removeControlEducation()
   const button = parent.document.querySelector('.ylcf-control-button')
   button && button.remove()
+}
+
+const removeControlEducation = () => {
+  if (controlEducationTimer !== undefined) {
+    window.clearTimeout(controlEducationTimer)
+    controlEducationTimer = undefined
+  }
+  parent.document.querySelector('.ylcf-control-education')?.remove()
+}
+
+const showControlEducation = async () => {
+  if (!parent.document.fullscreenElement) {
+    return
+  }
+
+  let completed = await hasCompletedOnboarding(
+    controlEducationFeatureId,
+    controlEducationVersion
+  )
+  if (!completed) {
+    const { [legacyControlEducationStorageKey]: legacySeen } =
+      await chrome.storage.local.get(legacyControlEducationStorageKey)
+    if (legacySeen) {
+      await completeOnboarding(controlEducationFeatureId, 1)
+      completed = true
+    }
+  }
+  if (completed) {
+    return
+  }
+
+  const button = parent.document.querySelector<HTMLButtonElement>(
+    '.ylcf-control-button'
+  )
+  if (!button) {
+    return
+  }
+
+  const tooltip = parent.document.createElement('div')
+  tooltip.className = 'ylcf-control-education'
+  tooltip.setAttribute('role', 'status')
+  tooltip.textContent = t('chatVisibilityControlEducation')
+
+  const rect = button.getBoundingClientRect()
+  tooltip.style.left = `${rect.left + rect.width / 2}px`
+  tooltip.style.bottom = `${parent.innerHeight - rect.top + 12}px`
+  parent.document.body.append(tooltip)
+
+  await completeOnboarding(controlEducationFeatureId, controlEducationVersion)
+  controlEducationTimer = window.setTimeout(removeControlEducation, 4000)
 }
 
 const addControlButton = () => {
@@ -100,6 +157,7 @@ const addControlButton = () => {
   button.classList.add('ylcf-control-button')
   button.onclick = async () =>
     await sendMessage({ type: 'chat-visibility-button-clicked' })
+  button.addEventListener('click', removeControlEducation)
   button.innerHTML = flowMessages
 
   // Change SVG viewBox
@@ -119,6 +177,7 @@ const addControlButton = () => {
   }
 
   updateControlButton()
+  void showControlEducation()
 }
 
 const updateMenuButtons = () => {
@@ -251,6 +310,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   setLocale(data.settings.language)
 
   await init()
+
+  parent.document.addEventListener('fullscreenchange', () => {
+    void showControlEducation()
+  })
 
   window.addEventListener('pagehide', () => {
     disconnect()

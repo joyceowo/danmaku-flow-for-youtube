@@ -88,6 +88,31 @@
   color: rgba(255, 255, 255, 1);
 }
 
+/* .ylcf-control-education */
+.ylcf-control-education {
+  position: fixed;
+  z-index: 2147483647;
+  max-width: min(260px, calc(100vw - 24px));
+  padding: 8px 12px;
+  border-radius: 4px;
+  color: #0f0f0f;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  font: 500 14px/20px Roboto, Arial, sans-serif;
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+.ylcf-control-education::after {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  content: '';
+  background: #ffffff;
+  transform: translateX(-50%) rotate(45deg);
+}
+
 /* Hide .ytp-fullerscreen-edu-button if .ylcf-controller exists  */
 .ylcf-controller + .ytp-right-controls .ytp-fullerscreen-edu-button {
   display: none;

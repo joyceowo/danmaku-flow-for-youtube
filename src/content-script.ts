@@ -115,7 +115,7 @@ const waitCollapsed = async () => {
 }
 
 const init = async () => {
-  if (!isVideoUrl()) {
+  if (!isVideoUrl() || !settings) {
     return
   }
 
@@ -159,6 +159,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   await init()
 
   document.addEventListener('fullscreenchange', () => {
+    if (!settings) {
+      return
+    }
+
     if (!document.fullscreenElement && settings.hideFullscreenChat) {
       void showChatVisibility()
       return

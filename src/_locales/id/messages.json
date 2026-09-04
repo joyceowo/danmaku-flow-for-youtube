@@ -1,0 +1,25 @@
+{
+  "extensionName": {
+    "message": "Danmaku Flow untuk YouTube: Hamparan Chat Langsung"
+  },
+  "extensionDescription": {
+    "message": "Tampilkan chat langsung YouTube sebagai danmaku dan komentar mengambang yang dapat disesuaikan."
+  },
+  "sectionGeneral": { "message": "Pengaturan Umum" },
+  "sectionMessageStyle": { "message": "Gaya Pesan" },
+  "sectionAppAndChat": { "message": "Aplikasi & Chat" },
+  "language": { "message": "Bahasa" },
+  "theme": { "message": "Tema" },
+  "hideChatAfterLoad": { "message": "Sembunyikan Chat" },
+  "hideChatAfterLoadHint": {
+    "message": "Sembunyikan panel chat sambil tetap menerima pesan untuk komentar mengalir."
+  },
+  "chatVisibilityControlHint": {
+    "message": "Dalam layar penuh, gunakan ikon chat di kontrol pemutar untuk menampilkan atau menyembunyikan panel chat."
+  },
+  "hideChat": { "message": "Sembunyikan Chat" },
+  "showChat": { "message": "Tampilkan Chat" },
+  "chatVisibilityControlEducation": {
+    "message": "Gunakan tombol ini untuk menampilkan atau menyembunyikan chat"
+  }
+}

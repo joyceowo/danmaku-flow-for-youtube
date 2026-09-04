@@ -1,0 +1,25 @@
+{
+  "extensionName": {
+    "message": "Danmaku Flow cho YouTube: Lớp phủ trò chuyện trực tiếp"
+  },
+  "extensionDescription": {
+    "message": "Hiển thị trò chuyện trực tiếp trên YouTube dưới dạng danmaku và bình luận nổi có thể tùy chỉnh."
+  },
+  "sectionGeneral": { "message": "Cài đặt chung" },
+  "sectionMessageStyle": { "message": "Kiểu tin nhắn" },
+  "sectionAppAndChat": { "message": "Ứng dụng & Trò chuyện" },
+  "language": { "message": "Ngôn ngữ" },
+  "theme": { "message": "Giao diện" },
+  "hideChatAfterLoad": { "message": "Ẩn trò chuyện" },
+  "hideChatAfterLoadHint": {
+    "message": "Ẩn bảng trò chuyện nhưng vẫn nhận tin nhắn cho bình luận chạy."
+  },
+  "chatVisibilityControlHint": {
+    "message": "Ở chế độ toàn màn hình, dùng biểu tượng trò chuyện trong thanh điều khiển để hiện hoặc ẩn bảng trò chuyện."
+  },
+  "hideChat": { "message": "Ẩn trò chuyện" },
+  "showChat": { "message": "Hiện trò chuyện" },
+  "chatVisibilityControlEducation": {
+    "message": "Dùng nút này để hiện hoặc ẩn trò chuyện"
+  }
+}

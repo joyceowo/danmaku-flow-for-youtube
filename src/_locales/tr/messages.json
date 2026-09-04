@@ -1,0 +1,25 @@
+{
+  "extensionName": {
+    "message": "YouTube için Danmaku Flow: Canlı sohbet katmanı"
+  },
+  "extensionDescription": {
+    "message": "YouTube canlı sohbetini özelleştirilebilir danmaku ve kayan yorumlar olarak gösterin."
+  },
+  "sectionGeneral": { "message": "Genel ayarlar" },
+  "sectionMessageStyle": { "message": "Mesaj stili" },
+  "sectionAppAndChat": { "message": "Uygulama ve sohbet" },
+  "language": { "message": "Dil" },
+  "theme": { "message": "Tema" },
+  "hideChatAfterLoad": { "message": "Sohbeti gizle" },
+  "hideChatAfterLoadHint": {
+    "message": "Kayan yorumlar için mesaj almaya devam ederken sohbet panelini gizler."
+  },
+  "chatVisibilityControlHint": {
+    "message": "Tam ekranda, sohbet panelini göstermek veya gizlemek için oynatıcı kontrollerindeki sohbet simgesini kullanın."
+  },
+  "hideChat": { "message": "Sohbeti gizle" },
+  "showChat": { "message": "Sohbeti göster" },
+  "chatVisibilityControlEducation": {
+    "message": "Sohbeti göstermek veya gizlemek için bu düğmeyi kullanın"
+  }
+}

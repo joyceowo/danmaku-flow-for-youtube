@@ -24,6 +24,9 @@
       persistent-hint
       dense
     />
+    <div class="caption chat-visibility-control-hint">
+      {{ t('chatVisibilityControlHint') }}
+    </div>
     <div class="support-card mt-5">
       <div class="d-flex align-center subtitle-2">
         <v-icon class="support-heading-icon mr-2" small
@@ -59,6 +62,14 @@ const languages = [
   { text: '日本語', value: 'ja' },
   { text: '繁體中文', value: 'zh_TW' },
   { text: '한국어', value: 'ko' },
+  { text: 'Bahasa Indonesia', value: 'id' },
+  { text: 'Tiếng Việt', value: 'vi' },
+  { text: 'ไทย', value: 'th' },
+  { text: 'Español', value: 'es' },
+  { text: 'Français', value: 'fr' },
+  { text: 'Deutsch', value: 'de' },
+  { text: 'Português (Brasil)', value: 'pt_BR' },
+  { text: 'Türkçe', value: 'tr' },
 ]
 
 const themes = [
@@ -96,6 +107,11 @@ const hideFullscreenChat = computed({
 </script>
 
 <style lang="scss" scoped>
+.chat-visibility-control-hint {
+  color: rgba(0, 0, 0, 0.6);
+  margin: -8px 0 0 32px;
+}
+
 .support-card {
   background: linear-gradient(135deg, #f8f5ff 0%, #eee7ff 100%);
   border: 1px solid #d9cef7;

@@ -1,7 +1,9 @@
 {
-  "extensionName": { "message": "Danmaku Flow for YouTube" },
+  "extensionName": {
+    "message": "Danmaku Flow for YouTube: 라이브 채팅 다마쿠"
+  },
   "extensionDescription": {
-    "message": "YouTube 동영상 위에 사용자 지정 가능한 다마쿠 스타일 라이브 채팅을 표시합니다."
+    "message": "YouTube 라이브 채팅을 맞춤형 다마쿠와 흐르는 댓글로 영상 위에 표시합니다."
   },
   "sectionGeneral": { "message": "일반 설정" },
   "sectionGeneralHint": {
@@ -77,6 +79,9 @@
   "hideChatAfterLoadHint": {
     "message": "흐르는 댓글을 위해 채팅을 계속 활성 상태로 두고 패널만 숨깁니다."
   },
+  "chatVisibilityControlHint": {
+    "message": "전체 화면에서는 플레이어 컨트롤의 채팅 아이콘으로 채팅 패널을 표시하거나 숨길 수 있습니다."
+  },
   "supportDevelopment": { "message": "개발 후원" },
   "supportDevelopmentHint": {
     "message": "Danmaku Flow의 독립적인 유지 관리를 도와주세요."
@@ -84,6 +89,9 @@
   "supportViaPayPal": { "message": "PayPal로 후원" },
   "hideChat": { "message": "채팅 숨기기" },
   "showChat": { "message": "채팅 표시" },
+  "chatVisibilityControlEducation": {
+    "message": "이 버튼으로 채팅을 표시하거나 숨길 수 있습니다"
+  },
   "followNewMessages": { "message": "새 메시지 따라가기" },
   "reloadFrame": { "message": "채팅 다시 로드" },
   "releaseV016Title": { "message": "v0.1.6 새로운 기능" },

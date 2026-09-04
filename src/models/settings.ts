@@ -6,7 +6,19 @@ export type StackDirection = 'top_to_bottom' | 'bottom_to_top'
 export type Theme = 'light' | 'dark'
 export type Overflow = 'overlay' | 'hidden'
 export type DisplayMode = 'video' | 'chat' | 'default' | 'custom'
-export type Locale = 'en' | 'ja' | 'zh_TW' | 'ko'
+export type Locale =
+  | 'en'
+  | 'ja'
+  | 'zh_TW'
+  | 'ko'
+  | 'id'
+  | 'vi'
+  | 'th'
+  | 'es'
+  | 'fr'
+  | 'de'
+  | 'pt_BR'
+  | 'tr'
 export type Styles = { [authorType in AuthorType]: Style }
 export type Visibilities = { [type in AuthorType | MessageType]: boolean }
 

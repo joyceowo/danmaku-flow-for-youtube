@@ -1,7 +1,7 @@
 {
-  "extensionName": { "message": "Danmaku Flow for YouTube" },
+  "extensionName": { "message": "Danmaku Flow for YouTube: Live Chat Overlay" },
   "extensionDescription": {
-    "message": "Display customizable danmaku-style live comments over YouTube videos."
+    "message": "Overlay YouTube live chat as customizable danmaku and floating comments."
   },
   "sectionGeneral": { "message": "General Settings" },
   "sectionGeneralHint": {
@@ -81,6 +81,9 @@
   "hideChatAfterLoadHint": {
     "message": "Hide the chat panel while keeping it active for flow messages."
   },
+  "chatVisibilityControlHint": {
+    "message": "In fullscreen, use the chat icon in the player controls to show or hide the chat panel."
+  },
   "supportDevelopment": { "message": "Support Development" },
   "supportDevelopmentHint": {
     "message": "Help keep Danmaku Flow independently maintained."
@@ -88,6 +91,9 @@
   "supportViaPayPal": { "message": "Support via PayPal" },
   "hideChat": { "message": "Hide Chat" },
   "showChat": { "message": "Show Chat" },
+  "chatVisibilityControlEducation": {
+    "message": "Use this button to show or hide the chat"
+  },
   "followNewMessages": { "message": "Follow New Messages" },
   "reloadFrame": { "message": "Reload Frame" },
   "releaseV016Title": { "message": "New in v0.1.6" },

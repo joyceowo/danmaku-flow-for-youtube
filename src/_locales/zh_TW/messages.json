@@ -1,7 +1,7 @@
 {
-  "extensionName": { "message": "Danmaku Flow for YouTube" },
+  "extensionName": { "message": "Danmaku Flow for YouTube：直播彈幕" },
   "extensionDescription": {
-    "message": "在 YouTube 影片上顯示可自訂的彈幕式即時留言。"
+    "message": "將 YouTube 直播聊天室轉成可自訂的彈幕與浮動留言。"
   },
   "sectionGeneral": { "message": "一般設定" },
   "sectionGeneralHint": { "message": "以下設定不受顯示模式影響。" },
@@ -75,6 +75,9 @@
   "hideChatAfterLoadHint": {
     "message": "隱藏聊天室畫面，但仍持續接收留言以顯示彈幕。"
   },
+  "chatVisibilityControlHint": {
+    "message": "全螢幕播放時，可使用播放器控制列中的聊天室圖示來顯示或隱藏聊天室。"
+  },
   "supportDevelopment": { "message": "支持開發" },
   "supportDevelopmentHint": {
     "message": "協助 Danmaku Flow 持續由獨立開發者維護。"
@@ -82,6 +85,9 @@
   "supportViaPayPal": { "message": "透過 PayPal 支持" },
   "hideChat": { "message": "隱藏聊天室" },
   "showChat": { "message": "顯示聊天室" },
+  "chatVisibilityControlEducation": {
+    "message": "點這裡可顯示／隱藏聊天室"
+  },
   "followNewMessages": { "message": "跟隨新留言" },
   "reloadFrame": { "message": "重新載入聊天室" },
   "releaseV016Title": { "message": "v0.1.6 更新內容" },

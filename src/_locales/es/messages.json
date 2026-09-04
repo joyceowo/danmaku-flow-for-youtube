@@ -1,0 +1,25 @@
+{
+  "extensionName": {
+    "message": "Danmaku Flow para YouTube: Superposición de chat en directo"
+  },
+  "extensionDescription": {
+    "message": "Muestra el chat en directo de YouTube como danmaku y comentarios flotantes personalizables."
+  },
+  "sectionGeneral": { "message": "Ajustes generales" },
+  "sectionMessageStyle": { "message": "Estilo de mensajes" },
+  "sectionAppAndChat": { "message": "Aplicación y chat" },
+  "language": { "message": "Idioma" },
+  "theme": { "message": "Tema" },
+  "hideChatAfterLoad": { "message": "Ocultar chat" },
+  "hideChatAfterLoadHint": {
+    "message": "Oculta el panel de chat mientras sigue recibiendo mensajes para los comentarios flotantes."
+  },
+  "chatVisibilityControlHint": {
+    "message": "En pantalla completa, usa el icono de chat de los controles del reproductor para mostrar u ocultar el panel."
+  },
+  "hideChat": { "message": "Ocultar chat" },
+  "showChat": { "message": "Mostrar chat" },
+  "chatVisibilityControlEducation": {
+    "message": "Usa este botón para mostrar u ocultar el chat"
+  }
+}

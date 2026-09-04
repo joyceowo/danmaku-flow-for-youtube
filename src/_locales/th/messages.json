@@ -1,0 +1,25 @@
+{
+  "extensionName": {
+    "message": "Danmaku Flow สำหรับ YouTube: แชตสดแบบซ้อนทับ"
+  },
+  "extensionDescription": {
+    "message": "แสดงแชตสดของ YouTube เป็นดันมาคุและความคิดเห็นลอยที่ปรับแต่งได้"
+  },
+  "sectionGeneral": { "message": "การตั้งค่าทั่วไป" },
+  "sectionMessageStyle": { "message": "รูปแบบข้อความ" },
+  "sectionAppAndChat": { "message": "แอปและแชต" },
+  "language": { "message": "ภาษา" },
+  "theme": { "message": "ธีม" },
+  "hideChatAfterLoad": { "message": "ซ่อนแชต" },
+  "hideChatAfterLoadHint": {
+    "message": "ซ่อนแผงแชตแต่ยังคงรับข้อความสำหรับความคิดเห็นที่ไหลอยู่"
+  },
+  "chatVisibilityControlHint": {
+    "message": "เมื่อเต็มหน้าจอ ใช้ไอคอนแชตในแถบควบคุมเพื่อแสดงหรือซ่อนแผงแชต"
+  },
+  "hideChat": { "message": "ซ่อนแชต" },
+  "showChat": { "message": "แสดงแชต" },
+  "chatVisibilityControlEducation": {
+    "message": "ใช้ปุ่มนี้เพื่อแสดงหรือซ่อนแชต"
+  }
+}

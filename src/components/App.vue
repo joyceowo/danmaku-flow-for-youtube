@@ -78,10 +78,22 @@ import { setLocale, t } from '~/utils/i18n'
 setLocale(settingsStore.language)
 
 const releaseVersion = '0.1.6'
-const releaseNoticeStorageKey = 'dismissedReleaseVersion'
-const releaseNoticeFirstShownAtStorageKey = 'releaseNoticeFirstShownAt'
+const releaseNoticeStorageKey = 'releaseNotice'
+const legacyReleaseNoticeStorageKey = 'dismissedReleaseVersion'
+const legacyReleaseNoticeFirstShownAtStorageKey = 'releaseNoticeFirstShownAt'
+const legacyReleaseNoticeVersion = '0.1.6'
 const releaseNoticeLifetime = 24 * 60 * 60 * 1000
 const releaseNoticeVisible = ref(false)
+
+type ReleaseNoticeState = {
+  version: string
+  firstShownAt: number
+  dismissed: boolean
+}
+
+const saveReleaseNoticeState = async (state: ReleaseNoticeState) => {
+  await chrome.storage.local.set({ [releaseNoticeStorageKey]: state })
+}
 
 const theme = computed<Theme>(() => settingsStore.theme || 'light')
 
@@ -94,24 +106,39 @@ onMounted(async () => {
 
   const result = await chrome.storage.local.get([
     releaseNoticeStorageKey,
-    releaseNoticeFirstShownAtStorageKey,
+    legacyReleaseNoticeStorageKey,
+    legacyReleaseNoticeFirstShownAtStorageKey,
   ])
-  if (result[releaseNoticeStorageKey] === releaseVersion) {
+  const savedState = result[releaseNoticeStorageKey] as
+    | ReleaseNoticeState
+    | undefined
+  const state =
+    savedState?.version === releaseVersion
+      ? savedState
+      : {
+          version: releaseVersion,
+          firstShownAt:
+            releaseVersion === legacyReleaseNoticeVersion &&
+            typeof result[legacyReleaseNoticeFirstShownAtStorageKey] ===
+              'number'
+              ? result[legacyReleaseNoticeFirstShownAtStorageKey]
+              : Date.now(),
+          dismissed:
+            releaseVersion === legacyReleaseNoticeVersion &&
+            result[legacyReleaseNoticeStorageKey] === releaseVersion,
+        }
+
+  if (state !== savedState) {
+    await saveReleaseNoticeState(state)
+  }
+
+  if (state.dismissed) {
     return
   }
 
-  const firstShownAt = result[releaseNoticeFirstShownAtStorageKey]
-  if (typeof firstShownAt === 'number') {
-    if (Date.now() - firstShownAt >= releaseNoticeLifetime) {
-      await chrome.storage.local.set({
-        [releaseNoticeStorageKey]: releaseVersion,
-      })
-      return
-    }
-  } else {
-    await chrome.storage.local.set({
-      [releaseNoticeFirstShownAtStorageKey]: Date.now(),
-    })
+  if (Date.now() - state.firstShownAt >= releaseNoticeLifetime) {
+    await saveReleaseNoticeState({ ...state, dismissed: true })
+    return
   }
 
   releaseNoticeVisible.value = true
@@ -119,8 +146,10 @@ onMounted(async () => {
 
 const dismissReleaseNotice = async () => {
   releaseNoticeVisible.value = false
-  await chrome.storage.local.set({
-    [releaseNoticeStorageKey]: releaseVersion,
+  await saveReleaseNoticeState({
+    version: releaseVersion,
+    firstShownAt: Date.now(),
+    dismissed: true,
   })
 }
 
@@ -196,6 +225,10 @@ body {
   ::v-deep .caption,
   ::v-deep .subtitle-2 {
     color: #f7f5ff !important;
+  }
+
+  ::v-deep .chat-visibility-control-hint {
+    color: #d6d0f0;
   }
 
   ::v-deep .v-text-field > .v-input__control > .v-input__slot::before,

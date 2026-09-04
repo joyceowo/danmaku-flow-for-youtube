@@ -1,0 +1,23 @@
+{
+  "extensionName": { "message": "Danmaku Flow für YouTube: Livechat-Overlay" },
+  "extensionDescription": {
+    "message": "Zeigt den YouTube-Livechat als anpassbare Danmaku- und schwebende Kommentare an."
+  },
+  "sectionGeneral": { "message": "Allgemeine Einstellungen" },
+  "sectionMessageStyle": { "message": "Nachrichtenstil" },
+  "sectionAppAndChat": { "message": "App und Chat" },
+  "language": { "message": "Sprache" },
+  "theme": { "message": "Design" },
+  "hideChatAfterLoad": { "message": "Chat ausblenden" },
+  "hideChatAfterLoadHint": {
+    "message": "Blendet das Chatfenster aus, während weiterhin Nachrichten für fließende Kommentare empfangen werden."
+  },
+  "chatVisibilityControlHint": {
+    "message": "Im Vollbildmodus können Sie über das Chat-Symbol in der Player-Steuerung das Chatfenster ein- oder ausblenden."
+  },
+  "hideChat": { "message": "Chat ausblenden" },
+  "showChat": { "message": "Chat anzeigen" },
+  "chatVisibilityControlEducation": {
+    "message": "Mit dieser Schaltfläche können Sie den Chat ein- oder ausblenden"
+  }
+}
