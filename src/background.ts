@@ -1,5 +1,6 @@
 import iconOn from '~/assets/livecanvas-icon-on.png'
-import { readyStore, settingsStore } from '~/store'
+import { Settings } from '~/models'
+import { readyStore } from '~/store'
 
 interface TabState {
   following: boolean
@@ -7,10 +8,33 @@ interface TabState {
 
 const initialState = { following: true }
 let tabStates: { [tabId: number]: TabState } = {}
+let latestSettings: Settings | undefined
 
-const getSettings = async () => {
+const cloneSettings = (settings: Settings) => {
+  return JSON.parse(JSON.stringify(settings)) as Settings
+}
+
+const getSettings = async (): Promise<Settings> => {
+  if (latestSettings) {
+    return cloneSettings(latestSettings)
+  }
+
+  const persistedState = await chrome.storage.local.get('vuex')
+  try {
+    const persistedSettings = JSON.parse(persistedState.vuex)
+      .settings as Settings
+    if (persistedSettings) {
+      latestSettings = persistedSettings
+      return cloneSettings(latestSettings)
+    }
+  } catch (_error) {
+    // Fall back to the restored Vuex state when storage has not been initialized.
+  }
+
   const store = await readyStore()
-  return JSON.parse(JSON.stringify(store.state.settings))
+  const restoredSettings = store.state.settings as Settings
+  latestSettings = restoredSettings
+  return cloneSettings(restoredSettings)
 }
 
 const setIcon = async (tabId: number) => {
@@ -34,13 +58,11 @@ const iframeLoaded = async (tabId: number) => {
 }
 
 const toggleChatVisibility = async () => {
-  await readyStore()
-  settingsStore.setHideFullscreenChat({
-    hideFullscreenChat: !settingsStore.hideFullscreenChat,
+  const settings = await getSettings()
+  await settingsChanged({
+    ...settings,
+    hideFullscreenChat: !settings.hideFullscreenChat,
   })
-  // Send the new setting immediately instead of relying on the store
-  // subscriber to send a message back to this service worker.
-  await settingsChanged(await getSettings())
 }
 
 const toggleFollowing = async (tabId: number) => {
@@ -60,7 +82,8 @@ const toggleFollowing = async (tabId: number) => {
 }
 
 const settingsChanged = async (settings?: unknown) => {
-  const currentSettings = settings || (await getSettings())
+  const currentSettings = (settings || (await getSettings())) as Settings
+  latestSettings = currentSettings
   await chrome.storage.local.set({
     vuex: JSON.stringify({ settings: currentSettings }),
   })
