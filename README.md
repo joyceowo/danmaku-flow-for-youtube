@@ -7,6 +7,12 @@ messages into flowing on-screen overlays. It helps present live comments more
 like danmaku or floating subtitles, while keeping the display customizable and
 easier to manage during busy streams.
 
+## What's New in v0.1.6
+
+- Each Display Mode now saves its own Appearance and Behavior settings.
+- Reorganized the Display Mode section and clarified that mode-specific settings are independent.
+- Fixed **Hide Chat** so it applies only in fullscreen, restores chat on exit without changing the saved setting, and hides it again on the next fullscreen entry.
+
 ## What's New in v0.1.5
 
 - Renamed the player control to **Toggle Danmaku** for clearer purpose.

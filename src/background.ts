@@ -43,15 +43,6 @@ const toggleChatVisibility = async () => {
   await settingsChanged(await getSettings())
 }
 
-const showChat = async () => {
-  await readyStore()
-  if (!settingsStore.hideFullscreenChat) {
-    return
-  }
-  settingsStore.setHideFullscreenChat({ hideFullscreenChat: false })
-  await settingsChanged(await getSettings())
-}
-
 const toggleFollowing = async (tabId: number) => {
   const following = !(tabStates[tabId] && tabStates[tabId].following)
   initialState.following = following
@@ -110,12 +101,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     case 'chat-visibility-button-clicked':
       if (tab?.id) {
         toggleChatVisibility().then(() => sendResponse())
-        return true
-      }
-      return
-    case 'show-chat-after-fullscreen':
-      if (tab?.id) {
-        showChat().then(() => sendResponse())
         return true
       }
       return

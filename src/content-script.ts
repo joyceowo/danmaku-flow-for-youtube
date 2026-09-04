@@ -74,7 +74,7 @@ const applyChatVisibility = async () => {
     return
   }
 
-  if (settings.hideFullscreenChat === true) {
+  if (settings.hideFullscreenChat && document.fullscreenElement) {
     chatContainers.forEach((container) => {
       container.style.setProperty('display', 'none', 'important')
     })
@@ -82,6 +82,18 @@ const applyChatVisibility = async () => {
     return
   }
 
+  chatContainers.forEach((container) => {
+    container.style.removeProperty('display')
+  })
+  window.dispatchEvent(new Event('resize'))
+}
+
+const showChatVisibility = async () => {
+  if (!isVideoUrl()) {
+    return
+  }
+
+  const chatContainers = await waitForChatContainers()
   chatContainers.forEach((container) => {
     container.style.removeProperty('display')
   })
@@ -108,6 +120,10 @@ const init = async () => {
   }
 
   await applyChatVisibility()
+
+  if (settings.hideFullscreenChat && document.fullscreenElement) {
+    return
+  }
 
   const collapsed = await waitCollapsed()
   if (!collapsed) {
@@ -144,7 +160,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   document.addEventListener('fullscreenchange', () => {
     if (!document.fullscreenElement && settings.hideFullscreenChat) {
-      void sendMessage({ type: 'show-chat-after-fullscreen' })
+      void showChatVisibility()
       return
     }
     void applyChatVisibility()
