@@ -26,6 +26,7 @@
         />
       </template>
     </v-slider>
+    <div class="caption setting-hint">{{ t('displayTimeHint') }}</div>
 
     <div class="caption">{{ t('delayTime') }}</div>
     <v-slider
@@ -53,6 +54,7 @@
         />
       </template>
     </v-slider>
+    <div class="caption setting-hint">{{ t('delayTimeHint') }}</div>
 
     <div class="caption">{{ t('maxLines') }}</div>
     <v-slider
@@ -75,13 +77,14 @@
         />
       </template>
     </v-slider>
+    <div class="caption setting-hint">{{ t('maxLinesHint') }}</div>
 
     <div class="caption">{{ t('maxDisplaysPerSecond') }}</div>
     <v-slider
       v-model="maxDisplays"
       class="align-center mb-5"
       min="0"
-      max="10"
+      max="100"
       dense
       hide-details
     >
@@ -99,13 +102,14 @@
         />
       </template>
     </v-slider>
+    <div class="caption setting-hint">{{ t('maxDisplaysHint') }}</div>
 
     <div class="caption">{{ t('maxActiveDisplays') }}</div>
     <v-slider
       v-model="maxActiveDisplays"
       class="align-center mb-5"
       min="0"
-      max="50"
+      max="200"
       dense
       hide-details
     >
@@ -123,6 +127,7 @@
         />
       </template>
     </v-slider>
+    <div class="caption setting-hint">{{ t('maxActiveDisplaysHint') }}</div>
 
     <div class="caption">{{ t('stackDirections') }}</div>
     <v-select
@@ -229,3 +234,10 @@ const stackDirection = computed({
   },
 })
 </script>
+
+<style lang="scss" scoped>
+.setting-hint {
+  color: rgba(0, 0, 0, 0.6);
+  margin: -12px 0 12px;
+}
+</style>

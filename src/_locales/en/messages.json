@@ -27,26 +27,57 @@
   "templateOneLineWithoutAuthor": { "message": "1 line (without Author)" },
   "templateOneLineWithAuthor": { "message": "1 line (with Author)" },
   "templateTwoLines": { "message": "2 lines" },
-  "height": { "message": "Height" },
-  "lineHeight": { "message": "Line Height" },
+  "height": { "message": "Font Size Adjustment" },
+  "lineHeight": { "message": "Font Size" },
   "lines": { "message": "Lines" },
-  "maxWidth": { "message": "Max Width (Infinite if set to 0)" },
-  "opacity": { "message": "Opacity" },
-  "showBackground": { "message": "Show Background (for Non-paid Messages)" },
+  "fontSize": { "message": "Font Size" },
+  "fontSizeHint": {
+    "message": "Larger values make text larger and allow fewer comments at once."
+  },
+  "maxWidth": { "message": "Maximum Comment Width (% of Video)" },
+  "maxWidthHint": {
+    "message": "Text over this width is truncated with …; set to 0 for no limit."
+  },
+  "opacity": { "message": "Comment Opacity" },
+  "opacityHint": {
+    "message": "0% is fully transparent and 100% is fully opaque."
+  },
+  "showBackground": { "message": "Show Regular Comment Background" },
   "backgroundOpacity": { "message": "Background Opacity" },
-  "outlineRatio": { "message": "Outline Ratio" },
+  "backgroundOpacityHint": {
+    "message": "Also applies to the original background color of paid comments."
+  },
+  "outlineRatio": { "message": "Text Outline Thickness" },
+  "outlineRatioHint": {
+    "message": "The outline scales proportionally with text size."
+  },
   "emojiStyle": { "message": "Emoji Style" },
-  "extendedStyle": { "message": "Extended Style" },
-  "flexible": { "message": "Flexible" },
-  "fixed": { "message": "Fixed" },
+  "extendedStyle": { "message": "Advanced CSS Style" },
+  "extendedStyleHint": {
+    "message": "Applied to all danmaku text; recommended only for people familiar with CSS."
+  },
+  "flexible": { "message": "Resize with Player" },
+  "fixed": { "message": "Fixed Size (px)" },
+  "flexibleFontSizeHint": {
+    "message": "Text resizes automatically with the player height."
+  },
+  "fixedFontSizeHint": {
+    "message": "Text size does not change with player size."
+  },
   "emojiImage": { "message": "Image" },
-  "emojiAlternativeText": { "message": "Alternative Text" },
+  "emojiAlternativeText": { "message": "Display as Text" },
   "none": { "message": "None" },
-  "displayTime": { "message": "Display Time" },
-  "delayTime": { "message": "Delay Time" },
-  "displayMode": { "message": "Display Mode" },
+  "displayTime": { "message": "Danmaku Travel Time" },
+  "displayTimeHint": {
+    "message": "Time for a comment to move from the right to the left of the player."
+  },
+  "delayTime": { "message": "Delay Before Comments Appear" },
+  "delayTimeHint": {
+    "message": "Comments begin after this delay; they are not reordered or replayed."
+  },
+  "displayMode": { "message": "Recommended Viewing Scenario" },
   "displayModeHint": {
-    "message": "Choose a display mode. Each mode keeps its own Appearance and Behavior settings."
+    "message": "Choose recommended settings for the content. Each scenario keeps its own Appearance and Behavior settings."
   },
   "displayModeVideo": { "message": "Game" },
   "displayModeVideoHint": {
@@ -56,7 +87,7 @@
   "displayModeChatHint": {
     "message": "Shows enough messages across the full player for live chat and watch-alongs."
   },
-  "displayModeDefault": { "message": "Default" },
+  "displayModeDefault": { "message": "Full Screen" },
   "displayModeDefaultHint": {
     "message": "Full-player danmaku by default. Busy moments may overlap and use more resources."
   },
@@ -64,20 +95,27 @@
   "displayModeCustomHint": {
     "message": "Custom settings. Select a mode to apply its recommended values."
   },
-  "maxLines": { "message": "Max Lines" },
+  "maxLines": { "message": "Maximum Simultaneous Rows" },
+  "maxLinesHint": { "message": "Set to 0 for no limit." },
   "maxDisplaysPerSecond": {
-    "message": "Max Displays per second (Infinite if set to 0)"
+    "message": "Comment Appearances per Second (0 means unlimited)"
+  },
+  "maxDisplaysHint": {
+    "message": "New comments over the limit are skipped, not delayed."
   },
   "maxActiveDisplays": {
-    "message": "Max Active Displays (Infinite if set to 0)"
+    "message": "Comments Visible at Once (0 means unlimited)"
   },
-  "stackDirections": { "message": "Stack Directions" },
-  "overflowMode": { "message": "Overflow Mode" },
-  "topToBottom": { "message": "Top to Bottom" },
-  "bottomToTop": { "message": "Bottom to Top" },
-  "hidden": { "message": "Hidden" },
-  "overlay": { "message": "Overlay" },
-  "hideChatAfterLoad": { "message": "Hide Chat" },
+  "maxActiveDisplaysHint": {
+    "message": "Only applies when overlap is allowed; new comments over the limit are skipped."
+  },
+  "stackDirections": { "message": "Where New Comments Start" },
+  "overflowMode": { "message": "When There Is Not Enough Space" },
+  "topToBottom": { "message": "Start at the Top" },
+  "bottomToTop": { "message": "Start at the Bottom" },
+  "hidden": { "message": "Skip New Comments" },
+  "overlay": { "message": "Allow Overlap" },
+  "hideChatAfterLoad": { "message": "Hide Chat in Fullscreen" },
   "hideChatAfterLoadHint": {
     "message": "Hide the chat panel while keeping it active for flow messages."
   },
@@ -91,6 +129,12 @@
   "supportViaPayPal": { "message": "Support via PayPal" },
   "hideChat": { "message": "Hide Chat" },
   "showChat": { "message": "Show Chat" },
+  "toggleVisibility": { "message": "Show or hide this comment type" },
+  "toggleAvatar": { "message": "Show or hide author avatars" },
+  "visibility": { "message": "Show" },
+  "avatar": { "message": "Avatar" },
+  "textColor": { "message": "Text Color" },
+  "messageTemplate": { "message": "Message Layout" },
   "chatVisibilityControlEducation": {
     "message": "Use this button to show or hide the chat"
   },

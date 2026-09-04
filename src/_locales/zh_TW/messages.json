@@ -25,26 +25,45 @@
   "templateOneLineWithoutAuthor": { "message": "單行（不顯示作者）" },
   "templateOneLineWithAuthor": { "message": "單行（顯示作者）" },
   "templateTwoLines": { "message": "雙行" },
-  "height": { "message": "高度" },
-  "lineHeight": { "message": "行高" },
+  "height": { "message": "字體大小調整方式" },
+  "lineHeight": { "message": "字體大小" },
   "lines": { "message": "行數" },
-  "maxWidth": { "message": "最大寬度（設為 0 表示無限制）" },
-  "opacity": { "message": "不透明度" },
-  "showBackground": { "message": "顯示背景（非付費訊息）" },
+  "fontSize": { "message": "字體大小" },
+  "fontSizeHint": { "message": "數值越大，字體越大、可同時排列的留言越少。" },
+  "maxWidth": { "message": "單則留言最大寬度（影片寬度 %）" },
+  "maxWidthHint": {
+    "message": "超過寬度的文字會以 … 截斷；設為 0 表示不限制。"
+  },
+  "opacity": { "message": "留言不透明度" },
+  "opacityHint": { "message": "0% 為完全透明，100% 為完全不透明。" },
+  "showBackground": { "message": "顯示一般留言背景" },
   "backgroundOpacity": { "message": "背景不透明度" },
-  "outlineRatio": { "message": "外框比例" },
+  "backgroundOpacityHint": {
+    "message": "也會套用到付費留言保留的原始背景色。"
+  },
+  "outlineRatio": { "message": "文字外框粗細" },
+  "outlineRatioHint": { "message": "外框會依字體大小等比例調整。" },
   "emojiStyle": { "message": "表情符號樣式" },
-  "extendedStyle": { "message": "進階樣式" },
-  "flexible": { "message": "彈性" },
-  "fixed": { "message": "固定" },
+  "extendedStyle": { "message": "進階 CSS 樣式" },
+  "extendedStyleHint": {
+    "message": "套用至所有彈幕文字；僅建議熟悉 CSS 的使用者調整。"
+  },
+  "flexible": { "message": "依畫面自動調整" },
+  "fixed": { "message": "固定大小（px）" },
+  "flexibleFontSizeHint": { "message": "字體會隨播放器高度自動縮放。" },
+  "fixedFontSizeHint": { "message": "字體大小不會隨播放器大小改變。" },
   "emojiImage": { "message": "圖片" },
-  "emojiAlternativeText": { "message": "替代文字" },
+  "emojiAlternativeText": { "message": "以文字顯示" },
   "none": { "message": "無" },
-  "displayTime": { "message": "顯示時間" },
-  "delayTime": { "message": "延遲時間" },
-  "displayMode": { "message": "顯示模式" },
+  "displayTime": { "message": "彈幕移動時間" },
+  "displayTimeHint": { "message": "留言從畫面右側移動到左側所需的時間。" },
+  "delayTime": { "message": "留言出現前延遲" },
+  "delayTimeHint": {
+    "message": "超過此時間後才開始顯示，不會重新排序或補播。"
+  },
+  "displayMode": { "message": "推薦顯示情境" },
   "displayModeHint": {
-    "message": "選擇彈幕顯示模式；每個模式會分別保存外觀與行為設定。"
+    "message": "選擇適合內容的推薦設定；每種情境會分別保存外觀與行為設定。"
   },
   "displayModeVideo": { "message": "遊戲" },
   "displayModeVideoHint": {
@@ -54,7 +73,7 @@
   "displayModeChatHint": {
     "message": "在全畫面顯示足夠留言，適合直播聊天與一起看。"
   },
-  "displayModeDefault": { "message": "預設" },
+  "displayModeDefault": { "message": "全畫面" },
   "displayModeDefaultHint": {
     "message": "預設全畫面顯示彈幕；高峰時可能重疊並增加裝置負擔。"
   },
@@ -62,16 +81,25 @@
   "displayModeCustomHint": {
     "message": "目前為自訂設定；選擇模式即可套用建議值。"
   },
-  "maxLines": { "message": "最大行數" },
-  "maxDisplaysPerSecond": { "message": "每秒最大顯示數（設為 0 表示無限制）" },
-  "maxActiveDisplays": { "message": "同時最大顯示數（設為 0 表示無限制）" },
-  "stackDirections": { "message": "堆疊方向" },
-  "overflowMode": { "message": "溢出模式" },
-  "topToBottom": { "message": "由上而下" },
-  "bottomToTop": { "message": "由下而上" },
-  "hidden": { "message": "隱藏" },
-  "overlay": { "message": "重疊" },
-  "hideChatAfterLoad": { "message": "隱藏聊天室" },
+  "maxLines": { "message": "同時顯示列數上限" },
+  "maxLinesHint": { "message": "設為 0 表示不限制。" },
+  "maxDisplaysPerSecond": {
+    "message": "每秒出現留言上限（設為 0 表示無限制）"
+  },
+  "maxDisplaysHint": { "message": "超過上限的新留言會略過，不會延後顯示。" },
+  "maxActiveDisplays": {
+    "message": "畫面中同時顯示的留言上限（設為 0 表示無限制）"
+  },
+  "maxActiveDisplaysHint": {
+    "message": "僅在允許留言重疊時生效；達上限的新留言會略過。"
+  },
+  "stackDirections": { "message": "新留言排列位置" },
+  "overflowMode": { "message": "畫面空間不足時" },
+  "topToBottom": { "message": "從上方開始" },
+  "bottomToTop": { "message": "從下方開始" },
+  "hidden": { "message": "略過新留言" },
+  "overlay": { "message": "允許留言重疊" },
+  "hideChatAfterLoad": { "message": "全螢幕時隱藏聊天室" },
   "hideChatAfterLoadHint": {
     "message": "隱藏聊天室畫面，但仍持續接收留言以顯示彈幕。"
   },
@@ -85,6 +113,12 @@
   "supportViaPayPal": { "message": "透過 PayPal 支持" },
   "hideChat": { "message": "隱藏聊天室" },
   "showChat": { "message": "顯示聊天室" },
+  "toggleVisibility": { "message": "顯示／隱藏此類留言" },
+  "toggleAvatar": { "message": "顯示／隱藏作者頭像" },
+  "visibility": { "message": "顯示" },
+  "avatar": { "message": "頭像" },
+  "textColor": { "message": "文字顏色" },
+  "messageTemplate": { "message": "留言版型" },
   "chatVisibilityControlEducation": {
     "message": "點這裡可顯示／隱藏聊天室"
   },

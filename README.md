@@ -7,6 +7,10 @@ messages into flowing on-screen overlays. It helps present live comments more
 like danmaku or floating subtitles, while keeping the display customizable and
 easier to manage during busy streams.
 
+## Install from Chrome Web Store
+
+[Download Danmaku Flow for YouTube from the Chrome Web Store](https://chromewebstore.google.com/detail/danmaku-flow-for-youtube/enfiknigldbijeoafkmnncphbgmhnnje)
+
 ## What's New in v0.1.6
 
 - Each Display Mode now saves its own Appearance and Behavior settings.

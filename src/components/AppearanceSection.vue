@@ -9,7 +9,7 @@
           dense
           single-line
           class="pt-0 mt-1"
-          style="width: 120px"
+          style="width: 160px"
         />
       </div>
       <div class="flex-grow-1">
@@ -42,9 +42,9 @@
           </v-slider>
         </template>
         <template v-else>
-          <div class="caption">{{ t('lines') }}</div>
+          <div class="caption">{{ t('fontSize') }}</div>
           <v-slider
-            v-model="lines"
+            v-model="fontSize"
             class="align-center mb-5"
             min="1"
             max="64"
@@ -54,7 +54,7 @@
           >
             <template #prepend>
               <v-text-field
-                v-model="lines"
+                v-model="fontSize"
                 class="mt-0 pt-0"
                 dense
                 hide-details
@@ -63,11 +63,14 @@
                 min="1"
                 max="64"
                 step="1"
-                style="width: 75px"
+                suffix="/ 64"
+                style="width: 88px"
               />
             </template>
           </v-slider>
+          <div class="caption setting-hint">{{ t('fontSizeHint') }}</div>
         </template>
+        <div class="caption setting-hint">{{ heightTypeHint }}</div>
       </div>
     </div>
 
@@ -95,61 +98,66 @@
         />
       </template>
     </v-slider>
+    <div class="caption setting-hint">{{ t('maxWidthHint') }}</div>
 
     <div class="caption">{{ t('opacity') }}</div>
     <v-slider
-      v-model="opacity"
+      v-model="opacityPercent"
       class="align-center mb-5"
       min="0"
-      max="1"
-      step="0.1"
+      max="100"
+      step="10"
       dense
       hide-details
     >
       <template #prepend>
         <v-text-field
-          v-model="opacity"
+          v-model="opacityPercent"
           class="mt-0 pt-0"
           dense
           hide-details
           single-line
           type="number"
           min="0"
-          max="1"
-          step="0.1"
+          max="100"
+          step="10"
+          suffix="%"
           style="width: 75px"
         />
       </template>
     </v-slider>
+    <div class="caption setting-hint">{{ t('opacityHint') }}</div>
 
     <div class="caption">{{ t('showBackground') }}</div>
     <v-switch v-model="background" class="mt-0" dense />
 
     <div class="caption">{{ t('backgroundOpacity') }}</div>
     <v-slider
-      v-model="backgroundOpacity"
+      v-model="backgroundOpacityPercent"
       class="align-center mb-5"
       min="0"
-      max="1"
-      step="0.1"
+      max="100"
+      step="10"
       dense
       hide-details
     >
       <template #prepend>
         <v-text-field
-          v-model="backgroundOpacity"
+          v-model="backgroundOpacityPercent"
           class="mt-0 pt-0"
           dense
           hide-details
           single-line
           type="number"
           min="0"
-          max="1"
-          step="0.1"
+          max="100"
+          step="10"
+          suffix="%"
           style="width: 75px"
         />
       </template>
     </v-slider>
+    <div class="caption setting-hint">{{ t('backgroundOpacityHint') }}</div>
 
     <div class="caption">{{ t('outlineRatio') }}</div>
     <v-slider
@@ -177,6 +185,7 @@
         />
       </template>
     </v-slider>
+    <div class="caption setting-hint">{{ t('outlineRatioHint') }}</div>
 
     <div class="caption">{{ t('emojiStyle') }}</div>
     <v-select
@@ -197,6 +206,7 @@
       auto-grow
       class="mt-1 pt-0"
     />
+    <div class="caption setting-hint">{{ t('extendedStyleHint') }}</div>
   </div>
 </template>
 
@@ -226,13 +236,13 @@ const background = computed({
     })
   },
 })
-const backgroundOpacity = computed({
+const backgroundOpacityPercent = computed({
   get: () => {
-    return settingsStore.backgroundOpacity
+    return settingsStore.backgroundOpacity * 100
   },
   set: (value) => {
     settingsStore.setBackgroundOpacity({
-      backgroundOpacity: Number(value),
+      backgroundOpacity: Number(value) / 100,
     })
   },
 })
@@ -266,6 +276,11 @@ const heightType = computed({
     })
   },
 })
+const heightTypeHint = computed(() => {
+  return heightType.value === 'fixed'
+    ? t('fixedFontSizeHint')
+    : t('flexibleFontSizeHint')
+})
 const lineHeight = computed({
   get: () => {
     return settingsStore.lineHeight
@@ -276,13 +291,14 @@ const lineHeight = computed({
     })
   },
 })
-const lines = computed({
+// Settings store lane count. Reverse it here so larger UI values mean larger text.
+const fontSize = computed({
   get: () => {
-    return settingsStore.lines
+    return 65 - settingsStore.lines
   },
   set: (value) => {
     settingsStore.setLines({
-      lines: Number(value),
+      lines: 65 - Number(value),
     })
   },
 })
@@ -296,13 +312,13 @@ const maxWidth = computed({
     })
   },
 })
-const opacity = computed({
+const opacityPercent = computed({
   get: () => {
-    return settingsStore.opacity
+    return settingsStore.opacity * 100
   },
   set: (value) => {
     settingsStore.setOpacity({
-      opacity: Number(value),
+      opacity: Number(value) / 100,
     })
   },
 })
@@ -317,3 +333,10 @@ const outlineRatio = computed({
   },
 })
 </script>
+
+<style lang="scss" scoped>
+.setting-hint {
+  color: rgba(0, 0, 0, 0.6);
+  margin: -12px 0 12px;
+}
+</style>

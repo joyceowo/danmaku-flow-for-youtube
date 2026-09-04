@@ -1,5 +1,12 @@
 <template>
   <div class="general-section">
+    <div class="style-column-headings caption" aria-hidden="true">
+      <span></span>
+      <span>{{ t('visibility') }}</span>
+      <span>{{ t('avatar') }}</span>
+      <span>{{ t('textColor') }}</span>
+      <span>{{ t('messageTemplate') }}</span>
+    </div>
     <div
       v-for="authorType in authorTypes"
       :key="authorType"
@@ -15,6 +22,8 @@
         :color="isVisible(authorType) ? 'primary' : 'grey'"
         text
         icon
+        :aria-label="t('toggleVisibility')"
+        :title="t('toggleVisibility')"
         @click="handleClickVisibility(authorType)"
       >
         <v-icon>mdi-eye</v-icon>
@@ -24,6 +33,8 @@
         :color="isAvatar(authorType) ? 'primary' : 'grey'"
         text
         icon
+        :aria-label="t('toggleAvatar')"
+        :title="t('toggleAvatar')"
         @click="handleClickAvatar(authorType)"
       >
         <v-icon>mdi-account-circle</v-icon>
@@ -36,6 +47,8 @@
           :value="getColor(authorType)"
           class="mt-0 pt-0"
           type="color"
+          :aria-label="t('textColor')"
+          :title="t('textColor')"
           hide-details
           @input="(value) => setColor(authorType, value)"
         />
@@ -62,6 +75,8 @@
         :color="isVisible(messageType) ? 'primary' : 'grey'"
         text
         icon
+        :aria-label="t('toggleVisibility')"
+        :title="t('toggleVisibility')"
         @click="handleClickVisibility(messageType)"
       >
         <v-icon>mdi-eye</v-icon>
@@ -140,5 +155,13 @@ const handleClickAvatar = (authorType: AuthorType) => {
       }
     }
   }
+}
+
+.style-column-headings {
+  align-items: center;
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 100px 36px 36px 42px 1fr;
+  margin-bottom: 4px;
 }
 </style>
