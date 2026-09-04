@@ -7,6 +7,7 @@
             <div>
               <div class="subtitle-2">{{ t('releaseV016Title') }}</div>
               <ul class="release-notice-list caption mt-2 mb-0">
+                <li>{{ t('releaseV016Scenarios') }}</li>
                 <li>{{ t('releaseV016ModeProfiles') }}</li>
                 <li>{{ t('releaseV016HideChat') }}</li>
               </ul>

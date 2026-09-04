@@ -5,6 +5,7 @@ import { getModule } from 'vuex-module-decorators'
 import { DisplayMode } from '~/models'
 import settings, {
   createInitialModeProfiles,
+  getBrowserLocale,
   modeSettingKeys,
 } from '~/store/settings'
 
@@ -24,6 +25,9 @@ const vuexPersist = new VuexPersistence({
 
     const savedState = state as any // eslint-disable-line @typescript-eslint/no-explicit-any
     const savedSettings = savedState.settings
+    if (savedSettings && !savedSettings.language) {
+      savedSettings.language = getBrowserLocale()
+    }
     if (savedSettings && !savedSettings.modeProfiles) {
       const legacyModes: Record<string, string> = {
         compact: 'video',

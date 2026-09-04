@@ -141,11 +141,14 @@
   "followNewMessages": { "message": "Follow New Messages" },
   "reloadFrame": { "message": "Reload Frame" },
   "releaseV016Title": { "message": "New in v0.1.6" },
+  "releaseV016Scenarios": {
+    "message": "New recommended viewing scenarios: Full Screen, Game, and Chat apply suitable danmaku settings with one click."
+  },
   "releaseV016ModeProfiles": {
-    "message": "Each Display Mode now keeps its own Appearance and Behavior settings."
+    "message": "Each scenario remembers its own settings, so switching does not overwrite them."
   },
   "releaseV016HideChat": {
-    "message": "Hide Chat now works only in fullscreen and keeps your setting after you exit."
+    "message": "Hide the chat in fullscreen; it automatically returns after you exit fullscreen."
   },
   "releaseV016Dismiss": { "message": "Got it" }
 }

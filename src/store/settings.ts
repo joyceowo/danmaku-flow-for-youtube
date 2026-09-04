@@ -16,6 +16,58 @@ import {
   Theme,
 } from '~/models'
 
+const supportedLocales: Locale[] = [
+  'en',
+  'ja',
+  'zh_TW',
+  'ko',
+  'id',
+  'vi',
+  'th',
+  'es',
+  'fr',
+  'de',
+  'pt_BR',
+  'tr',
+]
+
+const localeAliases: Record<string, Locale> = {
+  pt: 'pt_BR',
+  zh: 'zh_TW',
+  'zh-hant': 'zh_TW',
+  'zh-tw': 'zh_TW',
+}
+
+export const getBrowserLocale = (languages?: readonly string[]): Locale => {
+  const preferredLanguages =
+    languages ??
+    (typeof navigator === 'undefined'
+      ? []
+      : navigator.languages?.length
+      ? navigator.languages
+      : [navigator.language])
+
+  for (const language of preferredLanguages) {
+    const normalized = language.replace('_', '-').toLowerCase()
+    const exactMatch = supportedLocales.find(
+      (locale) => locale.replace('_', '-').toLowerCase() === normalized
+    )
+    if (exactMatch) return exactMatch
+
+    const languageCode = normalized.split('-')[0]
+    if (localeAliases[normalized] || localeAliases[languageCode]) {
+      return localeAliases[normalized] ?? localeAliases[languageCode]
+    }
+
+    const languageMatch = supportedLocales.find(
+      (locale) => locale.split('_')[0] === languageCode
+    )
+    if (languageMatch) return languageMatch
+  }
+
+  return 'en'
+}
+
 const createModeSettings = (preset: DisplayModePreset): ModeSettings => ({
   ...preset,
   extendedStyle: '',
@@ -60,7 +112,7 @@ const initialState: Settings = {
   displayMode: 'default',
   hideFullscreenChat: true,
   chatVisible: true,
-  language: 'en',
+  language: getBrowserLocale(),
   modeProfiles: initialModeProfiles,
   theme: 'light',
   styles: {
