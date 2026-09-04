@@ -83,5 +83,13 @@
   "hideChat": { "message": "隱藏聊天室" },
   "showChat": { "message": "顯示聊天室" },
   "followNewMessages": { "message": "跟隨新留言" },
-  "reloadFrame": { "message": "重新載入聊天室" }
+  "reloadFrame": { "message": "重新載入聊天室" },
+  "releaseV016Title": { "message": "v0.1.6 更新內容" },
+  "releaseV016ModeProfiles": {
+    "message": "每個顯示模式現在會分別保存外觀與行為設定。"
+  },
+  "releaseV016HideChat": {
+    "message": "隱藏聊天室現在僅在全螢幕生效，離開全螢幕後仍會保留設定。"
+  },
+  "releaseV016Dismiss": { "message": "知道了" }
 }

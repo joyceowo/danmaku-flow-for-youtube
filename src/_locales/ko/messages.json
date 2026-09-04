@@ -85,5 +85,13 @@
   "hideChat": { "message": "채팅 숨기기" },
   "showChat": { "message": "채팅 표시" },
   "followNewMessages": { "message": "새 메시지 따라가기" },
-  "reloadFrame": { "message": "채팅 다시 로드" }
+  "reloadFrame": { "message": "채팅 다시 로드" },
+  "releaseV016Title": { "message": "v0.1.6 새로운 기능" },
+  "releaseV016ModeProfiles": {
+    "message": "각 표시 모드는 모양과 동작 설정을 개별적으로 저장합니다."
+  },
+  "releaseV016HideChat": {
+    "message": "채팅 숨기기는 전체 화면에서만 동작하며, 종료 후에도 설정이 유지됩니다."
+  },
+  "releaseV016Dismiss": { "message": "확인" }
 }

@@ -2,6 +2,35 @@
   <v-app :class="{ 'dark-theme': theme === 'dark' }">
     <v-main class="fill-height">
       <v-container fluid>
+        <v-card v-if="releaseNoticeVisible" class="release-notice mb-5" flat>
+          <div class="d-flex align-start">
+            <div>
+              <div class="subtitle-2">{{ t('releaseV016Title') }}</div>
+              <ul class="release-notice-list caption mt-2 mb-0">
+                <li>{{ t('releaseV016ModeProfiles') }}</li>
+                <li>{{ t('releaseV016HideChat') }}</li>
+              </ul>
+            </div>
+            <v-btn
+              class="ml-auto"
+              icon
+              small
+              :aria-label="t('releaseV016Dismiss')"
+              @click="dismissReleaseNotice"
+            >
+              <v-icon small>mdi-close</v-icon>
+            </v-btn>
+          </div>
+          <v-btn
+            class="release-notice-dismiss mt-3"
+            small
+            outlined
+            @click="dismissReleaseNotice"
+          >
+            {{ t('releaseV016Dismiss') }}
+          </v-btn>
+        </v-card>
+
         <display-mode-section class="mb-5" />
 
         <div class="subtitle-2">{{ t('sectionAppearance') }}</div>
@@ -40,7 +69,7 @@ import BehaviorSection from '~/components/BehaviorSection.vue'
 import DisplayModeSection from '~/components/DisplayModeSection.vue'
 import GeneralSection from '~/components/GeneralSection.vue'
 import OthersSection from '~/components/OthersSection.vue'
-import { computed, nextTick, watch } from 'vue'
+import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { Theme } from '~/models'
 import { applyTheme } from '~/plugins/vuetify'
 import { settingsStore } from '~/store'
@@ -48,9 +77,52 @@ import { setLocale, t } from '~/utils/i18n'
 
 setLocale(settingsStore.language)
 
+const releaseVersion = '0.1.6'
+const releaseNoticeStorageKey = 'dismissedReleaseVersion'
+const releaseNoticeFirstShownAtStorageKey = 'releaseNoticeFirstShownAt'
+const releaseNoticeLifetime = 24 * 60 * 60 * 1000
+const releaseNoticeVisible = ref(false)
+
 const theme = computed<Theme>(() => settingsStore.theme || 'light')
 
 watch(theme, applyTheme, { immediate: true })
+
+onMounted(async () => {
+  if (!location.pathname.endsWith('/popup.html')) {
+    return
+  }
+
+  const result = await chrome.storage.local.get([
+    releaseNoticeStorageKey,
+    releaseNoticeFirstShownAtStorageKey,
+  ])
+  if (result[releaseNoticeStorageKey] === releaseVersion) {
+    return
+  }
+
+  const firstShownAt = result[releaseNoticeFirstShownAtStorageKey]
+  if (typeof firstShownAt === 'number') {
+    if (Date.now() - firstShownAt >= releaseNoticeLifetime) {
+      await chrome.storage.local.set({
+        [releaseNoticeStorageKey]: releaseVersion,
+      })
+      return
+    }
+  } else {
+    await chrome.storage.local.set({
+      [releaseNoticeFirstShownAtStorageKey]: Date.now(),
+    })
+  }
+
+  releaseNoticeVisible.value = true
+})
+
+const dismissReleaseNotice = async () => {
+  releaseNoticeVisible.value = false
+  await chrome.storage.local.set({
+    [releaseNoticeStorageKey]: releaseVersion,
+  })
+}
 
 const handleClickReset = async () => {
   settingsStore.resetState()
@@ -80,6 +152,23 @@ body {
   background: #ffffff;
   border-color: #d77a7a !important;
   color: #c65d5d;
+}
+
+.release-notice {
+  background: linear-gradient(135deg, #edf5ff 0%, #e9f0ff 100%);
+  border: 1px solid #b9d4f7;
+  border-radius: 8px;
+  color: #203a5f;
+  padding: 16px;
+}
+
+.release-notice-list {
+  padding-left: 18px;
+}
+
+.release-notice-dismiss {
+  border-color: #3979bd !important;
+  color: #28649f;
 }
 
 .dark-theme {
@@ -126,6 +215,21 @@ body {
     .caption {
       color: #d6d0f0;
     }
+  }
+
+  ::v-deep .release-notice {
+    background: linear-gradient(
+      135deg,
+      rgba(22, 54, 100, 0.92) 0%,
+      rgba(21, 36, 82, 0.92) 100%
+    );
+    border-color: rgba(118, 179, 255, 0.8);
+    color: #edf5ff;
+  }
+
+  ::v-deep .release-notice-dismiss {
+    border-color: #8ec2ff !important;
+    color: #c9e2ff;
   }
 
   ::v-deep .support-button {

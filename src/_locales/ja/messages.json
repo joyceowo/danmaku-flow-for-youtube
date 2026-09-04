@@ -85,5 +85,13 @@
   "hideChat": { "message": "チャットを隠す" },
   "showChat": { "message": "チャットを表示" },
   "followNewMessages": { "message": "新しいメッセージに追従" },
-  "reloadFrame": { "message": "チャットを再読み込み" }
+  "reloadFrame": { "message": "チャットを再読み込み" },
+  "releaseV016Title": { "message": "v0.1.6 の新機能" },
+  "releaseV016ModeProfiles": {
+    "message": "各表示モードで外観と動作の設定を個別に保存できるようになりました。"
+  },
+  "releaseV016HideChat": {
+    "message": "チャットを隠す機能は全画面時のみ動作し、終了後も設定を保持します。"
+  },
+  "releaseV016Dismiss": { "message": "了解" }
 }

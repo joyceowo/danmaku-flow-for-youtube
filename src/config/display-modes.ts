@@ -38,7 +38,7 @@ export const displayModePresets: Record<PresetDisplayMode, DisplayModePreset> =
       emojiStyle: 'image' as EmojiStyle,
       heightType: 'flexible' as HeightType,
       lines: 20,
-      maxActiveDisplays: 5,
+      maxActiveDisplays: 10,
       maxDisplays: 0,
       maxLines: 3,
       maxWidth: 200,

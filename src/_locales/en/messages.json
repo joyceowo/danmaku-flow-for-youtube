@@ -89,5 +89,13 @@
   "hideChat": { "message": "Hide Chat" },
   "showChat": { "message": "Show Chat" },
   "followNewMessages": { "message": "Follow New Messages" },
-  "reloadFrame": { "message": "Reload Frame" }
+  "reloadFrame": { "message": "Reload Frame" },
+  "releaseV016Title": { "message": "New in v0.1.6" },
+  "releaseV016ModeProfiles": {
+    "message": "Each Display Mode now keeps its own Appearance and Behavior settings."
+  },
+  "releaseV016HideChat": {
+    "message": "Hide Chat now works only in fullscreen and keeps your setting after you exit."
+  },
+  "releaseV016Dismiss": { "message": "Got it" }
 }

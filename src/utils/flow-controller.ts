@@ -45,6 +45,7 @@ export default class FlowController {
   private _settings: Settings | undefined
   private timelines: Timeline[][] = []
   private observer: MutationObserver | undefined
+  private observedItems: Element | undefined
   private followingTimer = -1
   private cleanupTimer = -1
   private limiter: Limiter | undefined
@@ -66,6 +67,8 @@ export default class FlowController {
 
   set following(value: boolean) {
     this._following = value
+    clearInterval(this.followingTimer)
+    this.followingTimer = -1
     if (value) {
       const scrollToBottom = () => {
         const hovered = !!document.querySelector('#chat:hover')
@@ -79,8 +82,6 @@ export default class FlowController {
       }
       scrollToBottom()
       this.followingTimer = window.setInterval(scrollToBottom, 1000)
-    } else {
-      clearInterval(this.followingTimer)
     }
   }
 
@@ -361,14 +362,18 @@ export default class FlowController {
   }
 
   async observe() {
-    this.observer?.disconnect()
-
     const items = await querySelectorAsync(
       '#items.yt-live-chat-item-list-renderer'
     )
     if (!items) {
       return
     }
+
+    if (this.observer && this.observedItems === items) {
+      return
+    }
+
+    this.observer?.disconnect()
 
     this.observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
@@ -381,19 +386,25 @@ export default class FlowController {
       })
     })
     this.observer.observe(items, { childList: true })
+    this.observedItems = items
 
-    this.cleanupTimer = window.setInterval(() => {
-      this.timelines = this.timelines.map((timelines) => {
-        return timelines.filter((timeline) => {
-          return timeline.didDisappear > Date.now()
+    if (this.cleanupTimer === -1) {
+      this.cleanupTimer = window.setInterval(() => {
+        this.timelines = this.timelines.map((timelines) => {
+          return timelines.filter((timeline) => {
+            return timeline.didDisappear > Date.now()
+          })
         })
-      })
-    }, 1000)
+      }, 1000)
+    }
   }
 
   disconnect() {
     clearInterval(this.cleanupTimer)
+    this.cleanupTimer = -1
     this.observer?.disconnect()
+    this.observer = undefined
+    this.observedItems = undefined
   }
 
   play() {

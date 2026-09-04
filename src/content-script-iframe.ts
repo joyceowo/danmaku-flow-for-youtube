@@ -10,6 +10,25 @@ const controller = new FlowController()
 let observer: MutationObserver | undefined
 let chatHidden = false
 
+const needsFlowReset = (previous: Settings | undefined, next: Settings) => {
+  if (!previous) {
+    return false
+  }
+
+  return (
+    previous.displayMode !== next.displayMode ||
+    previous.delayTime !== next.delayTime ||
+    previous.displayTime !== next.displayTime ||
+    previous.heightType !== next.heightType ||
+    previous.lineHeight !== next.lineHeight ||
+    previous.lines !== next.lines ||
+    previous.maxLines !== next.maxLines ||
+    previous.maxWidth !== next.maxWidth ||
+    previous.overflow !== next.overflow ||
+    previous.stackDirection !== next.stackDirection
+  )
+}
+
 const sendMessage = async <T>(message: object): Promise<T | undefined> => {
   try {
     return await chrome.runtime.sendMessage(message)
@@ -202,12 +221,20 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
       controller.following = data.following
       updateMenuButtons()
       return sendResponse()
-    case 'settings-changed':
+    case 'settings-changed': {
+      const previousSettings = controller.settings
       controller.settings = data.settings
+      if (needsFlowReset(previousSettings, data.settings)) {
+        // Timelines retain lane positions calculated with the prior mode.  They
+        // must not be reused after a mode switch, otherwise the old (for
+        // example, three-line Video) layout remains visible until a reload.
+        controller.clear()
+      }
       chatHidden = data.settings.hideFullscreenChat
       setLocale(data.settings.language)
       updateControlButton()
       return sendResponse()
+    }
   }
 })
 
