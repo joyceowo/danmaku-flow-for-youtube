@@ -1,29 +1,34 @@
-import { Settings } from '~/models'
 import { querySelectorAsync } from '~/utils/dom-helper'
 
-let settings: Settings
+let hideFullscreenChat: boolean | undefined
+let settingsRevision = 0
+let previousVisibility: boolean | undefined
+let resizePending = false
 
-const sendMessage = async <T>(message: object): Promise<T | undefined> => {
-  try {
-    return await chrome.runtime.sendMessage(message)
-  } catch (_error) {
-    return undefined
+const getHideChatSetting = (settings?: { hideFullscreenChat?: unknown }) =>
+  typeof settings?.hideFullscreenChat === 'boolean'
+    ? settings.hideFullscreenChat
+    : true
+
+const getStoredHideChatSetting = (value?: string) => {
+  if (!value) {
+    return true
   }
+  return getHideChatSetting(JSON.parse(value).settings)
 }
 
-const getInitialData = async () => {
-  for (let attempt = 0; attempt < 5; attempt += 1) {
-    const data = await sendMessage<{ settings: Settings }>({
-      type: 'content-loaded',
-    })
-    if (data) {
-      return data
-    }
-    await new Promise((resolve) => window.setTimeout(resolve, 250))
-  }
+const isVideoUrl = () => {
+  const pathname = new URL(location.href).pathname
+  return pathname === '/watch' || /^\/live\/[^/]+\/?$/.test(pathname)
 }
 
-const isVideoUrl = () => new URL(location.href).pathname === '/watch'
+const isWidePlayerMode = () =>
+  Boolean(
+    document.fullscreenElement ||
+      document.querySelector(
+        'ytd-watch-flexy[theater], .html5-video-player.ytp-fullscreen'
+      )
+  )
 
 const chatContainerSelector =
   '#panels-full-bleed-container, ytd-live-chat-frame'
@@ -31,73 +36,99 @@ const chatContainerSelector =
 const getChatContainers = () =>
   Array.from(document.querySelectorAll<HTMLElement>(chatContainerSelector))
 
-const waitForChatContainers = async (timeout = 15000) => {
-  const existing = getChatContainers()
-  if (existing.length > 0) {
-    return existing
-  }
+const hiddenChatContainers = new Map<
+  HTMLElement,
+  { display: string; priority: string }
+>()
 
-  return await new Promise<HTMLElement[]>((resolve) => {
-    const expireTime = Date.now() + timeout
-    const observer = new MutationObserver(() => {
-      const containers = getChatContainers()
-      if (containers.length > 0) {
-        observer.disconnect()
-        resolve(containers)
-        return
-      }
-      if (Date.now() > expireTime) {
-        observer.disconnect()
-        resolve([])
-      }
-    })
+const shouldHideChat = () =>
+  isVideoUrl() && hideFullscreenChat === true && isWidePlayerMode()
 
-    observer.observe(document.documentElement, {
-      childList: true,
-      subtree: true,
-    })
-
-    window.setTimeout(() => {
-      observer.disconnect()
-      resolve(getChatContainers())
-    }, timeout)
-  })
-}
-
-const applyChatVisibility = async () => {
-  if (!isVideoUrl() || !settings) {
+const applyChatVisibility = () => {
+  if (hideFullscreenChat === undefined) {
     return
   }
 
-  const chatContainers = await waitForChatContainers()
-  if (chatContainers.length === 0) {
-    return
+  const chatContainers = getChatContainers()
+  const hidden = shouldHideChat()
+  let changed = false
+  if (hidden !== previousVisibility) {
+    previousVisibility = hidden
+    resizePending = true
   }
 
-  if (settings.hideFullscreenChat && document.fullscreenElement) {
-    chatContainers.forEach((container) => {
-      container.style.setProperty('display', 'none', 'important')
-    })
+  for (const [container, original] of hiddenChatContainers) {
+    if (!hidden || !chatContainers.includes(container)) {
+      if (original.display) {
+        container.style.setProperty(
+          'display',
+          original.display,
+          original.priority
+        )
+      } else {
+        container.style.removeProperty('display')
+      }
+      hiddenChatContainers.delete(container)
+      changed = true
+    }
+  }
+
+  if (hidden) {
+    for (const container of chatContainers) {
+      if (!hiddenChatContainers.has(container)) {
+        hiddenChatContainers.set(container, {
+          display: container.style.getPropertyValue('display'),
+          priority: container.style.getPropertyPriority('display'),
+        })
+      }
+      // YouTube can replace the inline style while moving or rebuilding chat.
+      if (
+        container.style.getPropertyValue('display') !== 'none' ||
+        container.style.getPropertyPriority('display') !== 'important'
+      ) {
+        container.style.setProperty('display', 'none', 'important')
+        changed = true
+      }
+    }
+  }
+
+  // Resize once per visibility transition. Reapplying a style after YouTube
+  // resets it must not fire resize again and create an observer feedback loop.
+  if (changed && resizePending) {
+    resizePending = false
     window.dispatchEvent(new Event('resize'))
-    return
   }
-
-  chatContainers.forEach((container) => {
-    container.style.removeProperty('display')
-  })
-  window.dispatchEvent(new Event('resize'))
 }
 
-const showChatVisibility = async () => {
-  if (!isVideoUrl()) {
-    return
-  }
+const observeChatVisibility = () => {
+  const relevantSelector = `${chatContainerSelector}, ytd-watch-flexy, .html5-video-player`
+  const containsRelevantElement = (node: Node) =>
+    node instanceof Element &&
+    (node.matches(relevantSelector) || node.querySelector(relevantSelector))
 
-  const chatContainers = await waitForChatContainers()
-  chatContainers.forEach((container) => {
-    container.style.removeProperty('display')
+  const observer = new MutationObserver((mutations) => {
+    const relevant = mutations.some((mutation) => {
+      if (mutation.type === 'childList') {
+        return [...mutation.addedNodes, ...mutation.removedNodes].some(
+          containsRelevantElement
+        )
+      }
+      const target = mutation.target as Element
+      if (mutation.attributeName === 'style') {
+        return target.matches(chatContainerSelector)
+      }
+      return target.matches('ytd-watch-flexy, .html5-video-player')
+    })
+    if (relevant) {
+      applyChatVisibility()
+    }
   })
-  window.dispatchEvent(new Event('resize'))
+  observer.observe(document.documentElement, {
+    childList: true,
+    attributes: true,
+    attributeFilter: ['theater', 'class', 'style'],
+    subtree: true,
+  })
 }
 
 const waitCollapsed = async () => {
@@ -115,25 +146,27 @@ const waitCollapsed = async () => {
 }
 
 const init = async () => {
-  if (!isVideoUrl() || !settings) {
+  applyChatVisibility()
+
+  if (!isVideoUrl() || hideFullscreenChat === undefined) {
     return
   }
 
-  await applyChatVisibility()
-
-  if (settings.hideFullscreenChat && document.fullscreenElement) {
+  if (shouldHideChat()) {
     return
   }
 
   const collapsed = await waitCollapsed()
-  if (!collapsed) {
+  if (!collapsed || shouldHideChat() || !isVideoUrl()) {
     return
   }
 
   const button = await querySelectorAsync<HTMLAnchorElement>(
     '#show-hide-button a'
   )
-  button && button.click()
+  if (button && !shouldHideChat() && isVideoUrl()) {
+    button.click()
+  }
 }
 
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
@@ -143,30 +176,47 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
       init().then(() => sendResponse())
       return true
     case 'settings-changed':
-      settings = data.settings
-      applyChatVisibility().then(() => sendResponse())
-      return true
+      settingsRevision += 1
+      hideFullscreenChat = getHideChatSetting(data.settings)
+      applyChatVisibility()
+      return sendResponse()
   }
 })
 
-document.addEventListener('DOMContentLoaded', async () => {
-  const data = await getInitialData()
-  if (!data) {
-    return
-  }
+const start = async () => {
+  document.addEventListener('fullscreenchange', applyChatVisibility)
+  observeChatVisibility()
 
-  settings = data.settings
-  await init()
-
-  document.addEventListener('fullscreenchange', () => {
-    if (!settings) {
+  chrome.storage.onChanged.addListener((changes, areaName) => {
+    if (areaName !== 'local' || !changes.vuex) {
       return
     }
-
-    if (!document.fullscreenElement && settings.hideFullscreenChat) {
-      void showChatVisibility()
-      return
+    settingsRevision += 1
+    try {
+      hideFullscreenChat = getStoredHideChatSetting(changes.vuex.newValue)
+    } catch (_error) {
+      // Keep the current setting if the stored value cannot be parsed.
     }
-    void applyChatVisibility()
+    applyChatVisibility()
   })
-})
+
+  const revision = settingsRevision
+  try {
+    // Read the same persisted setting as the options UI. Chat visibility must
+    // not depend on the service worker responding to an initialization message.
+    const stored = await chrome.storage.local.get('vuex')
+    if (revision === settingsRevision) {
+      hideFullscreenChat = getStoredHideChatSetting(stored.vuex)
+    }
+  } catch (_error) {
+    // Keep any setting already received from a runtime or storage update.
+  }
+
+  await init()
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', start, { once: true })
+} else {
+  void start()
+}

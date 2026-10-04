@@ -115,12 +115,12 @@
   "bottomToTop": { "message": "Start at the Bottom" },
   "hidden": { "message": "Skip New Comments" },
   "overlay": { "message": "Allow Overlap" },
-  "hideChatAfterLoad": { "message": "Hide Chat in Fullscreen" },
+  "hideChatAfterLoad": { "message": "Hide Chat in Fullscreen or Theater Mode" },
   "hideChatAfterLoadHint": {
     "message": "Hide the chat panel while keeping it active for flow messages."
   },
   "chatVisibilityControlHint": {
-    "message": "In fullscreen, use the chat icon in the player controls to show or hide the chat panel."
+    "message": "In fullscreen or theater mode, use the chat icon in the player controls to show or hide the chat panel."
   },
   "supportDevelopment": { "message": "Support Development" },
   "supportDevelopmentHint": {

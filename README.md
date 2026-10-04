@@ -29,7 +29,7 @@ Currently supports Google Chrome and YouTube live chat.
 - Control simultaneous comment rows, where new comments begin, and what happens when space runs out.
 - Move the chat input to the video controls area and add helper buttons to the chat list.
 - Toggle flowing comments with the **Toggle Danmaku** button in the YouTube player controls.
-- Hide the chat panel in fullscreen while keeping flowing comments active; it returns when you exit fullscreen.
+- Hide the chat panel in fullscreen or theater mode while keeping flowing comments active; it returns in the normal view.
 - **Always Show Chat**: keep the chat panel visible for YouTube Premieres, where it is hidden
   by default.
 - Limit the rate and number of comments on screen to reduce lag during busy chat traffic.

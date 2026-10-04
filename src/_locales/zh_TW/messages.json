@@ -99,12 +99,12 @@
   "bottomToTop": { "message": "從下方開始" },
   "hidden": { "message": "略過新留言" },
   "overlay": { "message": "允許留言重疊" },
-  "hideChatAfterLoad": { "message": "全螢幕時隱藏聊天室" },
+  "hideChatAfterLoad": { "message": "全螢幕或劇院模式時隱藏聊天室" },
   "hideChatAfterLoadHint": {
     "message": "隱藏聊天室畫面，但仍持續接收留言以顯示彈幕。"
   },
   "chatVisibilityControlHint": {
-    "message": "全螢幕播放時，可使用播放器控制列中的聊天室圖示來顯示或隱藏聊天室。"
+    "message": "全螢幕或劇院模式播放時，可使用播放器控制列中的聊天室圖示來顯示或隱藏聊天室。"
   },
   "supportDevelopment": { "message": "支持開發" },
   "supportDevelopmentHint": {
