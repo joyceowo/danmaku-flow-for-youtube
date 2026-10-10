@@ -124,15 +124,15 @@
   },
   "followNewMessages": { "message": "跟隨新留言" },
   "reloadFrame": { "message": "重新載入聊天室" },
-  "releaseV016Title": { "message": "v0.1.6 更新內容" },
-  "releaseV016Scenarios": {
-    "message": "新增「推薦顯示情境」：全畫面、遊戲、聊天互動，一鍵套用適合的彈幕設定。"
+  "releaseV017Title": { "message": "v0.1.7 更新內容" },
+  "releaseV017LivePages": {
+    "message": "修正 YouTube /live 頁面的聊天室隱藏功能，包含延遲載入的聊天室。"
   },
-  "releaseV016ModeProfiles": {
-    "message": "各情境會分別記住設定，切換時不會互相覆蓋。"
+  "releaseV017HideChat": {
+    "message": "全螢幕與劇院模式可隱藏聊天室，彈幕持續顯示；回到一般模式時自動恢復聊天室。"
   },
-  "releaseV016HideChat": {
-    "message": "全螢幕時可隱藏聊天室，離開全螢幕後會自動恢復。"
+  "releaseV017Reliability": {
+    "message": "改善切換影片與變更設定時的聊天室顯示穩定性，避免反覆觸發頁面尺寸調整。"
   },
-  "releaseV016Dismiss": { "message": "知道了" }
+  "releaseV017Dismiss": { "message": "知道了" }
 }

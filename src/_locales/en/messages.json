@@ -140,15 +140,15 @@
   },
   "followNewMessages": { "message": "Follow New Messages" },
   "reloadFrame": { "message": "Reload Frame" },
-  "releaseV016Title": { "message": "New in v0.1.6" },
-  "releaseV016Scenarios": {
-    "message": "New recommended viewing scenarios: Full Screen, Game, and Chat apply suitable danmaku settings with one click."
+  "releaseV017Title": { "message": "New in v0.1.7" },
+  "releaseV017LivePages": {
+    "message": "Fixed chat hiding on YouTube /live pages, including chats that load later."
   },
-  "releaseV016ModeProfiles": {
-    "message": "Each scenario remembers its own settings, so switching does not overwrite them."
+  "releaseV017HideChat": {
+    "message": "Hide the chat in fullscreen or theater mode while keeping danmaku active; it returns in normal view."
   },
-  "releaseV016HideChat": {
-    "message": "Hide the chat in fullscreen; it automatically returns after you exit fullscreen."
+  "releaseV017Reliability": {
+    "message": "Improved chat visibility when navigating between videos or changing settings, and prevented repeated page resizing."
   },
-  "releaseV016Dismiss": { "message": "Got it" }
+  "releaseV017Dismiss": { "message": "Got it" }
 }

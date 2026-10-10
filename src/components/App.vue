@@ -5,18 +5,18 @@
         <v-card v-if="releaseNoticeVisible" class="release-notice mb-5" flat>
           <div class="d-flex align-start">
             <div>
-              <div class="subtitle-2">{{ t('releaseV016Title') }}</div>
+              <div class="subtitle-2">{{ t('releaseV017Title') }}</div>
               <ul class="release-notice-list caption mt-2 mb-0">
-                <li>{{ t('releaseV016Scenarios') }}</li>
-                <li>{{ t('releaseV016ModeProfiles') }}</li>
-                <li>{{ t('releaseV016HideChat') }}</li>
+                <li>{{ t('releaseV017LivePages') }}</li>
+                <li>{{ t('releaseV017HideChat') }}</li>
+                <li>{{ t('releaseV017Reliability') }}</li>
               </ul>
             </div>
             <v-btn
               class="ml-auto"
               icon
               small
-              :aria-label="t('releaseV016Dismiss')"
+              :aria-label="t('releaseV017Dismiss')"
               @click="dismissReleaseNotice"
             >
               <v-icon small>mdi-close</v-icon>
@@ -28,7 +28,7 @@
             outlined
             @click="dismissReleaseNotice"
           >
-            {{ t('releaseV016Dismiss') }}
+            {{ t('releaseV017Dismiss') }}
           </v-btn>
         </v-card>
 
@@ -78,11 +78,8 @@ import { setLocale, t } from '~/utils/i18n'
 
 setLocale(settingsStore.language)
 
-const releaseVersion = '0.1.6'
+const releaseVersion = '0.1.7'
 const releaseNoticeStorageKey = 'releaseNotice'
-const legacyReleaseNoticeStorageKey = 'dismissedReleaseVersion'
-const legacyReleaseNoticeFirstShownAtStorageKey = 'releaseNoticeFirstShownAt'
-const legacyReleaseNoticeVersion = '0.1.6'
 const releaseNoticeLifetime = 24 * 60 * 60 * 1000
 const releaseNoticeVisible = ref(false)
 
@@ -105,11 +102,7 @@ onMounted(async () => {
     return
   }
 
-  const result = await chrome.storage.local.get([
-    releaseNoticeStorageKey,
-    legacyReleaseNoticeStorageKey,
-    legacyReleaseNoticeFirstShownAtStorageKey,
-  ])
+  const result = await chrome.storage.local.get(releaseNoticeStorageKey)
   const savedState = result[releaseNoticeStorageKey] as
     | ReleaseNoticeState
     | undefined
@@ -118,15 +111,8 @@ onMounted(async () => {
       ? savedState
       : {
           version: releaseVersion,
-          firstShownAt:
-            releaseVersion === legacyReleaseNoticeVersion &&
-            typeof result[legacyReleaseNoticeFirstShownAtStorageKey] ===
-              'number'
-              ? result[legacyReleaseNoticeFirstShownAtStorageKey]
-              : Date.now(),
-          dismissed:
-            releaseVersion === legacyReleaseNoticeVersion &&
-            result[legacyReleaseNoticeStorageKey] === releaseVersion,
+          firstShownAt: Date.now(),
+          dismissed: false,
         }
 
   if (state !== savedState) {

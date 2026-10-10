@@ -121,6 +121,13 @@ are stored in `chrome.storage.local`. See the full [Privacy Policy](docs/privacy
 
 ## Release Notes
 
+### v0.1.7
+
+- Fix chat hiding on YouTube `/live` pages, including late-loading chat panels.
+- Hide chat in fullscreen and theater mode while keeping danmaku active, and restore it in normal view.
+- Keep chat visibility synchronized across video navigation and settings changes without repeated page resizing.
+- Show the v0.1.7 update notice in the extension popup, including for users who dismissed the v0.1.6 notice.
+
 [View the latest version and complete release history on GitHub Releases.](https://github.com/joyceowo/danmaku-flow-for-youtube/releases)
 
 ## Acknowledgements

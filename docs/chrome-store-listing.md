@@ -38,7 +38,7 @@ Key features:
 - Support Super Chats, Super Stickers, and Membership messages.
 - Limit message rate and active message count for smoother playback on busy streams.
 - Toggle flowing comments with the **Toggle Danmaku** button in the YouTube player controls.
-- **Hide Chat After Page Load** hides the chat panel while flowing comments are enabled and restores it when they are disabled.
+- Hide the chat panel in fullscreen or theater mode while keeping flowing comments active; it returns in normal view. Supports YouTube `/watch` and `/live` pages, including late-loading chat panels.
 - **Always Show Chat** keeps the chat panel visible for YouTube Premieres, where it is hidden by default.
 
 Whether you are building a more dynamic stream presentation, improving readability for audience reactions, or creating a viewing style inspired by Japanese live comment culture, Danmaku Flow for YouTube gives you a polished and configurable danmaku experience on YouTube.
@@ -57,7 +57,7 @@ Danmaku Flow for YouTube 能把 YouTube 直播與首播聊天室轉成日系彈�
 - 支援 Super Chat、Super Sticker 與會員訊息。
 - 可限制每秒顯示數量與同時存在的訊息數，降低高流量聊天室造成的負擔。
 - 提供影片控制列上的 **開關彈幕** 快捷按鈕，方便快速啟用或停用彈幕。
-- **Hide Chat After Page Load** 會在彈幕啟用時於頁面載入後隱藏聊天室，停用彈幕時恢復顯示。
+- 全螢幕與劇院模式可隱藏聊天室，彈幕持續顯示；回到一般模式時自動恢復聊天室。支援 YouTube `/watch` 與 `/live` 頁面，包含延遲載入的聊天室。
 - **Always Show Chat** 可在 YouTube Premiere 預設隱藏聊天室時，保持聊天室可見。
 
 不論你是想打造更有臨場感的直播畫面、提升大量留言時的閱讀節奏，或是做出更接近日系彈幕文化的觀看體驗，Danmaku Flow for YouTube 都能提供完整而細緻的彈幕留言功能。
@@ -76,7 +76,7 @@ Danmaku Flow for YouTube は、YouTube のライブ配信やプレミア公開�
 - Super Chat、Super Sticker、メンバーシップ メッセージに対応。
 - 1 秒あたりの表示数と同時表示数を制限し、コメントが多い配信でも再生をスムーズに維持。
 - プレーヤー操作の **Toggle Danmaku** ボタンで、流れるコメントをすばやくオン／オフ。
-- **Hide Chat After Page Load** は、流れるコメントを有効にしたままチャットパネルを隠し、無効にすると元に戻します。
+- 全画面・シアターモードでは弾幕を表示したままチャットを隠せます。通常表示に戻るとチャットも復元されます。YouTube の `/watch`・`/live` ページと、遅れて読み込まれるチャットに対応します。
 - **Always Show Chat** は、通常はチャットが隠れる YouTube プレミア公開でもチャットを表示します。
 
 ライブ画面に一体感を加えたいとき、大量のリアクションを読みやすくしたいとき、YouTube で弾幕風の視聴体験を楽しみたいときに、Danmaku Flow for YouTube を使えます。
@@ -95,7 +95,7 @@ Danmaku Flow for YouTube는 YouTube 라이브 방송과 프리미어의 실시�
 - Super Chat, Super Sticker, 멤버십 메시지 지원.
 - 초당 표시 수와 동시 표시 수를 제한하여 채팅이 많은 방송에서도 부드러운 재생을 지원.
 - 플레이어 컨트롤의 **Toggle Danmaku** 버튼으로 흐르는 댓글을 빠르게 켜거나 끔.
-- **Hide Chat After Page Load**는 흐르는 댓글을 계속 표시하면서 채팅 패널을 숨기고, 비활성화하면 다시 표시.
+- 전체 화면과 영화관 모드에서 다마쿠를 유지하면서 채팅을 숨길 수 있으며, 일반 모드로 돌아오면 채팅이 복원됩니다. YouTube `/watch`, `/live` 페이지와 늦게 로드되는 채팅을 지원합니다.
 - **Always Show Chat**은 기본적으로 채팅이 숨겨지는 YouTube 프리미어에서도 채팅을 보이게 함.
 
 더 생동감 있는 라이브 화면을 만들거나, 많은 실시간 반응을 더 읽기 쉽게 보거나, YouTube에서 다마쿠 스타일 시청 경험을 원할 때 Danmaku Flow for YouTube를 사용할 수 있습니다.

@@ -94,12 +94,15 @@
   },
   "followNewMessages": { "message": "新しいメッセージに追従" },
   "reloadFrame": { "message": "チャットを再読み込み" },
-  "releaseV016Title": { "message": "v0.1.6 の新機能" },
-  "releaseV016ModeProfiles": {
-    "message": "各表示モードで外観と動作の設定を個別に保存できるようになりました。"
+  "releaseV017Title": { "message": "v0.1.7 の更新内容" },
+  "releaseV017LivePages": {
+    "message": "YouTube の /live ページでチャットを隠せない問題を修正しました。遅れて読み込まれるチャットにも対応します。"
   },
-  "releaseV016HideChat": {
-    "message": "チャットを隠す機能は全画面時のみ動作し、終了後も設定を保持します。"
+  "releaseV017HideChat": {
+    "message": "全画面・シアターモードでは弾幕を表示したままチャットを隠せます。通常表示に戻るとチャットも復元されます。"
   },
-  "releaseV016Dismiss": { "message": "了解" }
+  "releaseV017Reliability": {
+    "message": "動画の切り替えや設定変更時のチャット表示を安定させ、ページサイズの繰り返し調整を防ぎました。"
+  },
+  "releaseV017Dismiss": { "message": "了解" }
 }
